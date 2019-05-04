@@ -1,4 +1,4 @@
 # Table of contents
 
-* [Initial page](README.md)
+* [CSC 263 - Course Notes](README.md)
 
