@@ -4,5 +4,6 @@
 * [Introduction](review.md)
 * [Analysis of Algorithms](analysis-of-algorithms.md)
 * [Asymptotic Notation](asymptotic-notation.md)
-* [Heap](heap.md)
+* [Binary Heap](binary-heap.md)
+* [Binomial Heaps](binomial-heaps.md)
 
