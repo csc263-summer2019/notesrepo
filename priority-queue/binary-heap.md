@@ -109,7 +109,60 @@ This representation is very convenient because when we add values to the end of 
 
 ## Heapify and Heapsort
 
-Since our heap is actually implemented with an array, it would be good to have a way to actually 
+Since our heap is actually implemented with an array, it would be good to have a way to actually create a heap in place starting with an array that isn't a heap and ending with an array that is heap.  While it is possible to simply "insert" values into the heap repeatedly, the faster way to perform this task is an algorithm called Heapify.
+
+In the Heapify Algorithm, works like this:
+
+Given a node within the heap where both its left and right children are proper heaps \(maintains proper heap order\) , do the following:
+
+* If the node has higher priority than both children, we are done, the entire heap is a proper heap
+* Otherwise 
+  * swap current node with higher priority child
+  * Heapify that subtree
+
+Effectively what is happening is that we already know that both the left and right children are proper heaps.  If the current node is higher priority than both children then the entire heap must be proper
+
+However if its not then we do a swap, this means that the current node's value has now gone down into one of the subtrees.  This could cause that subtree to no longer be a heap because the root of that subtree now has a value of lower priority than it use to have.
+
+### Example: MaxHeapify
+
+This example will start with an array that is not heap.  It will perform maxheapify on it to form a max heap \(bigger values have higher priority\)
+
+![](../.gitbook/assets/maxheapify1.png)
+
+Firstly, all leaf nodes are valid heaps.  Since they have no subtree, we don't need to deal with those nodes.  They are highlighted in green in this next picture.  We start from the back of the array at the element corresponding to the first non-leaf node.
+
+![](../.gitbook/assets/maxheapify2.png)
+
+First node to consider is 5.  the nodes starting at 6 is a proper heap so we are good on this
+
+![](../.gitbook/assets/maxheapify3.png)
+
+Second node to consider is 3.  both 4 and 7 are bigger than 3 and thus have higher priority.  However, 7 is higher priority than 4, so we swap these two values
+
+![](../.gitbook/assets/maxheapify4.png)
+
+Next consider the node with 6.  6 is higher priority than 5 but not higher priority than 8, so we swap them.  6 is now in a leaf node and thus we can stop
+
+![](../.gitbook/assets/maxheapify5.png)
+
+Lastly we consider the node 1.  both 8 and 7 have higher priority than 1, but 8 is higher priority than 7 and thus we swap 8 and 1 first.  
+
+![](../.gitbook/assets/maxheapify6.png)
+
+At this point we need to heapify the subtree that now has 1 as it's root.  We swap it with the higher priority child \(6 in this case\).  Notice that because we won't need to do anything to the right subtree with 7 as root, as that subtree was not modified.  
+
+![](../.gitbook/assets/maxheapify7.png)
+
+After the final swap we have a proper max heap
+
+![](../.gitbook/assets/maxheapify8.png)
+
+
+
+
+
+
 
 
 
