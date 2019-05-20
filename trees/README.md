@@ -6,7 +6,7 @@ A tree is a very important data structure. It has the ability to classify data a
 
 This section will include some basic terminology used when describing trees. To help you understand the terminology, use the following diagram:
 
-![](.gitbook/assets/tree.png)
+![](../.gitbook/assets/tree.png)
 
 **Node**: the thing that store the data within the tree . \(each circle in the above diagram is a node\)
 
