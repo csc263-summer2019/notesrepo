@@ -67,7 +67,7 @@ Create a heap by inserting these number in the order given: 10, 6, 20, 5, 16, 17
 
 ![](../.gitbook/assets/heapinsertion6.png)
 
-Insert 13
+#### Insert 13
 
 ![](../.gitbook/assets/heapinsertion7.png)
 
@@ -89,13 +89,21 @@ The empty spot that had been created by the removal of the value at root must be
 
 The process of moving the empty spot down the heap is called _**percolate down**_
 
+### Example
+
+This is what would happen if we were to to perform a single delete operation on the following heap:
+
+![](../.gitbook/assets/heapdeletion.png)
+
 ## Implementation
 
 Clearly we want to implement the heap in as simple a manner as possible. Although we can use a link structure to represent each node and their children, this structure is actually not good for a heap.  We really don't need the linking structure because our tree is a complete binary tree. This makes it very easy for us to use an array to represent our tree.
 
 Idea is this. Store the data in successive array elements. Use the index values to find the child and parent of any node.
 
-Suppose data was stored in element i. The left child of that node is in element 2i+1 The right child of the node is in element 2i+2 The parent of the node is stored in \(i-1\)/2 \(for all but root node which has no parent\)
+Suppose data was stored in element i. The left child of that node is in element 2i+1 The right child of the node is in element 2i+2 The parent of the node is stored in \(i-1\)/2 \(for all but root node which has no parent\).  This representation effectively numbers the nodes from top to bottom, left to right from 0.
+
+![](../.gitbook/assets/heaprepresentation.png)
 
 This representation is very convenient because when we add values to the end of the array it is like we are adding a node to the leftmost available spot at the bottom level. 
 
