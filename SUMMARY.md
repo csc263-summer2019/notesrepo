@@ -7,4 +7,5 @@
 * [Priority Queues](priority-queue/README.md)
   * [Binary Heap](priority-queue/binary-heap.md)
   * [Binomial Heaps](priority-queue/binomial-heaps.md)
+* [Trees](trees.md)
 
