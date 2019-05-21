@@ -126,7 +126,7 @@ However if its not then we do a swap, this means that the current node's value h
 
 ### Example: MaxHeapify
 
-This example will start with an array that is not heap.  It will perform maxheapify on it to form a max heap \(bigger values have higher priority\)
+This example will start with an array that is not heap.  It will perform maxheapify on it to form a max heap \(bigger values have higher priority\).  In each of the diagrams below, the argument to maxHeapify\(\) is the  index corresponding to the node
 
 ![](../.gitbook/assets/maxheapify1.png)
 
@@ -134,17 +134,25 @@ Firstly, all leaf nodes are valid heaps.  Since they have no subtree, we don't n
 
 ![](../.gitbook/assets/maxheapify2.png)
 
-First node to consider is 5.  the nodes starting at 6 is a proper heap so we are good on this
+#### maxHeapify\(3\)
+
+First node to consider is 5.  the left subtree is lower priority and the right subtree doesn't exist so we do nothing.
 
 ![](../.gitbook/assets/maxheapify3.png)
+
+#### maxHeapify\(2\)
 
 Second node to consider is 3.  both 4 and 7 are bigger than 3 and thus have higher priority.  However, 7 is higher priority than 4, so we swap these two values
 
 ![](../.gitbook/assets/maxheapify4.png)
 
+#### maxHeapify\(1\)
+
 Next consider the node with 6.  6 is higher priority than 5 but not higher priority than 8, so we swap them.  6 is now in a leaf node and thus we can stop
 
 ![](../.gitbook/assets/maxheapify5.png)
+
+#### maxHeapify\(0\)
 
 Lastly we consider the node 1.  both 8 and 7 have higher priority than 1, but 8 is higher priority than 7 and thus we swap 8 and 1 first.  
 

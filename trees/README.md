@@ -30,7 +30,7 @@ This section will include some basic terminology used when describing trees. To 
 
 **Depth**: Distance from root node of tree. Root node is at depth 0. B and C are at depth 1. Nodes at depth 2 are D,E,F,G and H. Nodes at depth 3 are I and J
 
-**Height**: Total number of nodes from root to furthest leaf. Our tree has a height of 4.
+**Height**:  number of edges from root to furthest leaf.  The height of the above tree is 3.  By convention, the height of an empty tree is -1
 
 **Path**: Set of branches taken to connect an ancestor of a node to the node. Usually described by the set of nodes encountered along the path.
 
