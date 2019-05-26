@@ -36,10 +36,10 @@ A binomial heap is a collection of binomial trees that meet the following criter
 A binomial heap of with n nodes will support the following operations \(with the run times given\):
 
 * Make-Heap - $$\theta(1)$$ - makes an empty heap
-* Insert \(x\) - $$O(log n)$$ - inserts x into the heap
 * Minimum\(\) - $$O(log n)$$returns the smallest item in the heap
-* Extract Minimum - $$\theta(log n)$$removes the smallest item from the heap
 * Union - $$O(log n)$$merges two heaps together into one heap
+* Insert \(x\) - $$O(log n)$$ - inserts x into the heap
+* Extract Minimum - $$\theta(log n)$$removes the smallest item from the heap
 
 ### Representation
 
@@ -55,7 +55,38 @@ Each node will store the following:
 
 Essentially at each level of the tree, you have a linked list from left to right.  the parent only points to the left most node of the tree
 
+The heap itself consists of a head pointer that links to the lowest degree tree.  The trees are then linked by the root nodes \(using the sibling pointer\) of the binomial trees of the heaps.  The trees are ordered by the degree of the root \(in increasing order\)
 
+### Make-Heap
+
+Set head pointer to nullptr
+
+### Minimum
+
+Minimum value of heap must be in root node of one of the trees as each tree maintains min-heap order.  All we need to do is 
+
+* start at the root of the first tree. make it's value current min.
+* Follow the sibling pointer until the end, if any of the roots have the smallest value then it becomes the min.
+
+Thus the number of binomial trees in the heap dictate how long this would take.  At most there are $$\lfloor {log n} \rfloor + 1$$ trees
+
+### Union
+
+The union operation merges together two binomial heaps.
+
+We begin with two heaps \(called $$H_1$$and $$ H_2$$\).  In each heap there are different number of binomial trees of varying degrees ordered with lowest degree first.
+
+Starting with the first tree in each of the heaps.  Two things can happen:
+
+lowest degree is different - Select the tree with the lower degree for the final heap.  advance to next tree within the heap the tree came from
+
+lowest degree is the same - Combine the two trees into one.  Remember that $$B_k$$is made of two trees that are both $$B_{k-1}$$.  Each of these two trees are already properly ordered as min-heaps.  Thus all we need to do is compare the roots.  Whichever value is smaller becomes the root of the combined tree and the other becomes that trees left most child.
+
+At worst, we will end up needing to combine 3 trees of the same degree \(2 from the original tree, plus one more created as a result of merging two previous trees\).  
+
+### Insert
+
+Insert begins by creating adding a single node into the Heap \(A $$B_0$$tree\).  If there are no other $$B_0$$ trees we are done.  If there are, we combine the trees \(like just like the union algorithm\) forming a $$B_1$$tree.  We continue to combine trees in this manner until we get a tree with a unique degree
 
 
 
