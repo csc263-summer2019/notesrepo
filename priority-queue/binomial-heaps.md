@@ -4,10 +4,28 @@ Another data structure that could be used to implement a priority queue is a bin
 
 ## Binomial Trees and Binomial Heaps
 
-A _**binomial heap**_ is a collection of _**binomial trees**_**.**  A binomial tree $$B_k$$is an ordered tree where
+A _**binomial heap**_ is a collection of _**binomial trees**_**.** 
+
+### **Binomial Trees**
+
+ A binomial tree $$B_k$$is an ordered tree where
 
 * $$B_0$$ is a tree with exactly one node
 * $$B_k$$ is made of two binomial trees $$B_{k-1}%$$ that are linked such that the root of one tree is the left most child of the root of the other tree.
 
 ![](../.gitbook/assets/binomialheaps1.png)
+
+A binomial tree $$B_k$$has 4 properties:
+
+1. there are $$2^k$$nodes in $$B_k$$
+2. the height of $$B_k$$is $$k$$
+3. there are exactly $$k \choose i $$nodes at depth i \(where root is at depth 0\)
+
+   ![](../.gitbook/assets/binomialheap2.png)
+
+4. the root degree k.  for the children of the root you will find that their degree is k-1, k-2, ... 
+
+   ![](../.gitbook/assets/binomialheap3.png)
+
+
 
