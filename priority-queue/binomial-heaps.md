@@ -88,5 +88,16 @@ At worst, we will end up needing to combine 3 trees of the same degree \(2 from 
 
 Insert begins by creating adding a single node into the Heap \(A $$B_0$$tree\).  If there are no other $$B_0$$ trees we are done.  If there are, we combine the trees \(like just like the union algorithm\) forming a $$B_1$$tree.  We continue to combine trees in this manner until we get a tree with a unique degree
 
+### Extract Minimum
+
+* Create an empty heap $$H'$$
+* Find the smallest tree with the smallest root
+* delete the root and place each of the children into the empty heap
+* Merge the old heap with $$H'$$
+
+
+
+
+
 
 
