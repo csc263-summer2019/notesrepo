@@ -2,7 +2,7 @@
 
 Another data structure that could be used to implement a priority queue is a binomial heap.  The advantage of a binomial heap is that it supports the _**union**_ operation which combines two binomial heaps into one in $$O(log n)$$ .  While it is possible to write the _**union**_ operation using a binary heap, the run time of the operation would be  $$\theta(n)$$  \(append one array to the other then perform heapify on the array\).  
 
-A _**binomial heap**_ is a collection \(forest\) of _**binomial trees**_**.** 
+A _**binomial heap**_ is a collection \(forest\) of _**binomial trees**_**.**  In the discussion below, we will be building a min-heap \(smaller value, higher priority\).  You can do exactly the same operations for a max-heap, the difference is just what is considered to be higher priority
 
 ## **Binomial Trees**
 
@@ -40,6 +40,20 @@ A binomial heap of with n nodes will support the following operations \(with the
 * Minimum\(\) - $$O(log n)$$returns the smallest item in the heap
 * Extract Minimum - $$\theta(log n)$$removes the smallest item from the heap
 * Union - $$O(log n)$$merges two heaps together into one heap
+
+### Representation
+
+To represent a binomial heap, we use a linked structure of nodes.
+
+Each node will store the following:
+
+* _**key**_ - the value stored in the heap.  The value we use to determine priority
+* _**degree**_ - number of children the node has
+* _**parent**_ - pointer to parent of the node, nullptr if node is root
+* _**child**_ - pointer to leftmost child of node, nullpointer if node is leaf
+* _**sibling**_ - pointer to the node just right of the current node nullptr if node is right most
+
+Essentially at each level of the tree, you have a linked list from left to right.  the parent only points to the left most node of the tree
 
 
 
