@@ -30,5 +30,9 @@ Similar to upper bound, a lower bound is not something that only applies to best
 
 " $$T(n)$$ is in $$\Omega(f(n))$$"  iff for some constants $$c$$ and $$n_0$$, $$T(n) \geq c f(n)$$  for all $$n \geq n_0​​$$ 
 
-To prove this, what we need to argue is simply that there is a set of input of size n for which f\(n\) is the lower bound \(at least c\*f\(n\) steps must be taken  to handle that particular input\). 
+To prove this, what we need to argue is simply that there is at least one set of input of size n for which f\(n\) is the lower bound \(at least c\*f\(n\) steps must be taken  to handle that particular input\). 
+
+
+
+
 

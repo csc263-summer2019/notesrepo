@@ -9,5 +9,5 @@ A _**binomial heap**_ is a collection of _**binomial trees**_**.**  A binomial t
 * $$B_0$$ is a tree with exactly one node
 * $$B_k$$ is made of two binomial trees $$B_{k-1}%$$ that are linked such that the root of one tree is the left most child of the root of the other tree.
 
-
+![](../.gitbook/assets/binomialheaps1.png)
 
