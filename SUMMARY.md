@@ -6,7 +6,7 @@
 * [Asymptotic Notation](asymptotic-notation.md)
 * [Priority Queues](priority-queue/README.md)
   * [Binary Heap](priority-queue/binary-heap.md)
-  * [Binomial Heaps](priority-queue/binomial-heaps.md)
+  * [Binomial Heaps and Binomial Trees](priority-queue/binomial-heaps.md)
 * [Trees](trees/README.md)
   * [Binary Trees](trees/binary-trees.md)
   * [Binary Search Trees](trees/binary-search-trees.md)
