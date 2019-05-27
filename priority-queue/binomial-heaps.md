@@ -91,8 +91,8 @@ Insert begins by creating adding a single node into the Heap \(A $$B_0$$tree\). 
 ### Extract Minimum
 
 * Create an empty heap $$H'$$
-* Find the smallest tree with the smallest root
-* delete the root and place each of the children into the empty heap
+* Find the tree with the smallest root
+* delete the root and place each of the children into the empty heap $$H'$$\(remember that if the root is degree k.  for the children of the root you will find that their degree is k-1, k-2, ... .  Thus, they are all binomial trees with different degrees\)
 * Merge the old heap with $$H'$$
 
 
