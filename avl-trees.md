@@ -131,5 +131,73 @@ Furthermore, The balance factor of C becomes 0 regardless of what it was initial
 | 0 | h | h | 0 | 0 |
 | +1 | h-1 | h | -1 | 0 |
 
+## Deletion
+
+The deletion algorithm for AVL trees must also keep the tree height balanced.  This section will look at how deletion works.
+
+The deletion algorithm does the following:
+
+* In general follow BST deletion rules.
+  * if node is leaf delete node, set pointer from parent to nullptr
+  * if node has one child, have parent point to only child
+  * if node has two children replace deleted node with inorder successor
+* Because a deletion could potentially shorten a tree, we might need to adjust the tree.  Starting with the deleted node \(which may not actually be the node that contains the value we are getting rid of... more on this later\) work our way back up to root, fix the height/balance info and rotate as needed.
+
+The rest of this section will look at how it works
+
+### Deletion always removes a leaf node
+
+The above statement may seem a bit odd because it seems like it can't be true, but it is.    Note that node being remove isn't necessarily the node where value being removed was originally found. Lets consider the three deletion cases to explain why it is true:
+
+#### Value is found in a leaf node
+
+In this case, clearly the node to be removed is a leaf as we found it there.  Thus, we get rid of it, adjust or height/balance values going back up the tree
+
+#### Value is in a node with exactly one child
+
+A node with only one child means that the only child is a leaf.  The reason for this is because our tree is height balanced to start with.  If the only child had a child, the node wouldn't have been height balanced as illustrated in the following diagram:
+
+![](.gitbook/assets/avldelete1.png)
+
+Thus, what effectively happens is that we end up with a tree that is shaped like we were removing B
+
+#### Value is in a node with exactly two children
+
+The algorithm to remove a node with two children is to replace the node with its inorder successor node.  This node is found by going one node to the right then going left until you can't.  The inorder successor itself can only have a right child \(if it had a left child it wouldn't be the inorder successor\).  As with the case of nodes with only one child, the inorder sucessor's right child must be a leaf because the inorder successor must have been height balanced before the deletion operation.
+
+![](.gitbook/assets/avldelete2.png)
+
+### Fixing the tree
+
+When will we need to fix the tree?
+
+Clearly if the deletion doesn't shorten its subtree, there is nothing that needs to be done. 
+
+Thus, we only need to consider what happens if deleting the node causes the tree to shorten.
+
+Let us consider the following.  In each case, B is the node being removed, A is some node along the path to B
+
+#### Balance of node was 0
+
+In the above, the A has balance of 0.  Removing B, shortened the blue subtree.  However, as the balance was 0 at A, A's balance will simply go either to +/- 1.   No rotation needed.  Also not only was no rotation needed, the height of the tree at A is actually exactly the same as it was before the deletion and thus, we can stop fixing the tree as nodes further up will not be affected
+
+![](.gitbook/assets/avldelete3.png)
+
+#### Balance of node was 1
+
+Two things can occur.  In the first case our node comes from the taller of the subtrees tree and it causes the tree to shorten.
+
+![](.gitbook/assets/avldelete4.png)
+
+if that is the case then we do not have to do any rotations at A because A's balance will become 0.  However, the tree did get shorter, so we must continue going up the tree as other nodes further up may require a rotation
+
+The second case is when we take out a node from the shorter subtree:
+
+![](.gitbook/assets/avldelete5.png)
+
+If we did this then our balance will go to +/- 2.  This would require rebalancing.  Like an insertion, rebalancing is simply a matter of applying a single or double rotation.  We simply need to follow the same rules and perform the rotation.
+
+After a rebalancing a node the subtree might have become shorter than it was because of the rotation, and thus we may need to go further up the tree to fix it.
+
 
 
