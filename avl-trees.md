@@ -147,7 +147,7 @@ The rest of this section will look at how it works
 
 ### Deletion always removes a leaf node
 
-The above statement may seem a bit odd because it seems like it can't be true, but it is.    Note that node being remove isn't necessarily the node where value being removed was originally found. Lets consider the three deletion cases to explain why it is true:
+Deletion always removes a leaf node.  The previous statement may seem a bit odd because it seems like it can't be true, but it is.    Note that node being remove isn't necessarily the node where value being removed was originally found. Lets consider the three deletion cases to explain why it is true:
 
 #### Value is found in a leaf node
 
@@ -173,29 +173,33 @@ When will we need to fix the tree?
 
 Clearly if the deletion doesn't shorten its subtree, there is nothing that needs to be done. 
 
-Thus, we only need to consider what happens if deleting the node causes the tree to shorten.
+Thus, we only need to consider what happens if deleting the node causes the tree to shorten.  In the examples below we only consider those situations.
 
 Let us consider the following.  In each case, B is the node being removed, A is some node along the path to B
 
-#### Balance of node was 0
+#### Balance of A was initially 0
 
-In the above, the A has balance of 0.  Removing B, shortened the blue subtree.  However, as the balance was 0 at A, A's balance will simply go either to +/- 1.   No rotation needed.  Also not only was no rotation needed, the height of the tree at A is actually exactly the same as it was before the deletion and thus, we can stop fixing the tree as nodes further up will not be affected
+Suppose that A  initially had a balance of 0.  Removing B, shortened the blue subtree.  However, as the balance was 0 at A, A's balance will simply go either to +/- 1.   No rotation needed.  Also not only was no rotation needed, the height of the tree at A is actually exactly the same as it was before the deletion and thus, we can stop fixing the tree as nodes further up will not be affected
 
 ![](.gitbook/assets/avldelete3.png)
 
-#### Balance of node was 1
+#### Balance of A was initially  +/-1
 
 Two things can occur.  In the first case our node comes from the taller of the subtrees tree and it causes the tree to shorten.
 
 ![](.gitbook/assets/avldelete4.png)
 
-if that is the case then we do not have to do any rotations at A because A's balance will become 0.  However, the tree did get shorter, so we must continue going up the tree as other nodes further up may require a rotation
+if that is the case then we do not have to do any rotations at A because A's balance will become 0.  However, the subtree with root A did get shorter, so we must continue going up the tree as other nodes further up may require a rotation
 
 The second case is when we take out a node from the shorter subtree:
 
 ![](.gitbook/assets/avldelete5.png)
 
 If we did this then our balance will go to +/- 2.  This would require rebalancing.  Like an insertion, rebalancing is simply a matter of applying a single or double rotation.  We simply need to follow the same rules and perform the rotation.
+
+
+
+
 
 After a rebalancing a node the subtree might have become shorter than it was because of the rotation, and thus we may need to go further up the tree to fix it.
 

@@ -13,4 +13,5 @@
   * [Implementation](trees/implementation.md)
 * [AVL Trees](avl-trees.md)
 * [Red Black Tree](red-black-tree.md)
+* [Hash Tables](hash-tables.md)
 
