@@ -530,7 +530,7 @@ public:
 
 ## Destructor
 
-A destructor must deallocate every node in the tree.  There are different ways that this could be done but the simplest is to write a post-order tree traversal.  The reason its a traversal is simply because we need to visit every node in the tree and destroy it.  The reason it has to be done in a post order manner is because we must first destroy both subtrees attached to a node before deleting the node or we will lose access to those subtrees.
+A destructor must deallocate every node in the tree.  There are different ways that this could be done but the simplest is to write a post-order tree traversal.  The reason its a traversal is simply because we need to visit every node in the tree and deallocate it.  The reason it has to be done in a post order manner is because we must first destroy both subtrees attached to a node before deleting the node or we will lose access to those subtrees.
 
 Similar to the print functions, the destructor will be written by private recursive function that accepts a the root of the subtree we are trying to deallocate.  We will call this function destroy:
 
