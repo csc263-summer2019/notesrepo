@@ -23,7 +23,7 @@ etc
 
 It would be very fast to look up/or update a frequency.  
 
-However what if what we wanted to track a larger set of possible keys?  For example suppose we wanted to track the frequency of ascii digrams \(2 character combos\).  We would have 256\*256 = 65 536 ranging from 0 to 65 535.  Relatively speaking this is still a very small number of keys so we can use the same method.  Just need to convert each character to an index by doing something like c1\*256 + c2 where c1 and c2 are the ASCII encoding of the first and second characters of the digrams respectively.
+However what if what we wanted to track a larger set of possible keys?  For example suppose we wanted to track the frequency of ascii digrams \(2 character combos\).  We would have 256\*256 = 65 536 ranging from 0 to 65 535.  Relatively speaking this is still a very small number of keys so we can use the same method.  Just need to convert each character to an index by doing something like $$c1(256) + c2$$ . where $$c1$$ and $$c2$$ are the ASCII encoding of the first and second characters of the digrams respectively.
 
 Now, what if we wanted to count the frequency of every word \(defined as 1 or more alphanumeric characters separated by 1 or more non-alphanumeric characters\).  
 
@@ -54,6 +54,59 @@ The basic operations on hash table are:
 Each of these operations
 
 
+
+The basics of hash tables are very simple but there are a number of problems that we must deal with
+
+* what hash function do we use?
+* what happens if two different keys get hashed into the same position \(collision\)
+
+### The pigeon hole principle
+
+Suppose you had n mailboxes and m letters where m &gt; n  \(more letters than mailboxes\).  If that is the case then at least one mailbox must contain 2 letters.    This is effectively what the situation is with our hash function and keys.  The number of mailboxes we have is n \(size of array\).  The total number of possible keys in $$U$$is bigger than n \(usually significantly bigger\).  Thus $$| U | > n$$.  What this means is that the hash function must return the same value for at least two different keys.
+
+Suppose the hash table were to contain two distinct keys $$k_1$$and $$k_2$$.  A _**collision**_ occurs if $$hashfunction(k_1) == hashfunction(k_2)$$.  
+
+Our implementation of hash tables therefore must be able to deal with collisions.
+
+## Collision Resolution
+
+## Chaining
+
+At every location \(hash index\) in your hash table store a linked list of items. Some space will still be wasted for the pointers but not nearly as much as bucketing. Table will also not overflow \(ie no pre-defined number of buckets to exceed\). You will still need to conduct a short linear search of the linked list but if your hash function uniformly distributes the items, the list should not be very long
+
+### Linear Probing
+
+Both bucketing and chaining essentially makes use of a second dimension to handle collisions. This is not the case for linear probing. Linear Probing uses just a regular one dimensional array.
+
+### Insertion
+
+The insertion algorithm is as follows:
+
+* use hash function to find index for a record
+* If that spot is already in use, we use next available spot in a "higher" index.
+* Treat the hash table as if it is round, if you hit the end of the hash table, go back to the front
+
+Each contiguous group of records \(groups of record in adjacent indices without any empty spots\) in the table is called a cluster.
+
+### Searching
+
+The search algorithm is as follows:
+
+* use hash function to find index of where an item should be.
+* If it isn't there search records that records after that hash location \(remember to treat table as cicular\) until either it found, or until an empty record is found. If there is an empty spot in the table before record is found, it means that the the record is not there.
+* NOTE: it is important not to search the whole array till you get back to the starting index. As soon as you see an empty spot, your search needs to stop. If you don't, your search will be incredibly slow
+
+### Removal
+
+The removal algorithm is a bit trickier because after an object is removed, records in same cluster with a higher index than the removed object has to be adjusted. Otherwise the empty spot left by the removal will cause valid searches to fail.
+
+The algorithm is as follows:
+
+* find record and remove it making the spot empty
+* For all records that follow it in the cluster, do the following:
+  * determine the hash index of the record
+  * determine if empty spot is between current location of record and the hash index.
+  * move record to empty spot if it is, the record's location is now the empty spot.
 
 
 
