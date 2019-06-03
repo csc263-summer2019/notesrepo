@@ -31,9 +31,27 @@ What if it was bigger still?  What if instead of storing the frequency of letter
 
 Note that most of these potential keys are not actually likely to exist in the text file.  Thus, we only need to store information about the words that actually do exist.  The solution to this problem is a hash table
 
-A hash table is a table that holds a set of key-value pairs.    In the above example of storing frequencies of words, the key would be the word.  The value would be the frequency of the word within the text file.   Unlike the very first example where the array index matched key, our array index won't and thus, we must store both the key and value together at each element
+A hash table is a table that holds a set of key-value pairs.    In the above example of storing frequencies of words, the key would be the word.  The value would be the frequency of the word within the text file.
+
+A hash table uses a hash function to transform a key into a valid hash index.
+
+That is hash\(k\) = hashindex
+
+The hash function is deterministic.  That is if we give it the same key, the same hashindex is always returned.
+
+A discussion of hash functions will be given a little later. 
 
 
+
+Unlike the very first example where the array index matched the key, our array index won't and thus, we must store both the key and value together at each element.
+
+The basic operations on hash table are:
+
+* insert\(k, v\) - inserts the key-value pair k-v into the hash table
+* delete\(k\) - finds and removes a key-value pair with a key matching k
+* search\(k\) - finds and returns the value associated with key matching k
+
+Each of these operations
 
 
 
