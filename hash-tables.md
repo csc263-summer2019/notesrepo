@@ -37,23 +37,26 @@ A hash table uses a hash function to transform a key into a valid hash index.
 
 That is hash\(k\) = hashindex
 
-The hash function is deterministic.  That is if we give it the same key, the same hashindex is always returned.
+The hash function is deterministic.  That is if we give it the same key, the same hashindex is always returned.  A discussion of hash functions will be given a little later. 
 
-A discussion of hash functions will be given a little later. 
+Unlike the very first example where the array index matched the key, our array index and keys will not match each other and thus, we must store both the key and value together at each element.
 
-
-
-Unlike the very first example where the array index matched the key, our array index won't and thus, we must store both the key and value together at each element.
-
-The basic operations on hash table are:
+In general the hash table supports the following functions:
 
 * insert\(k, v\) - inserts the key-value pair k-v into the hash table
 * delete\(k\) - finds and removes a key-value pair with a key matching k
 * search\(k\) - finds and returns the value associated with key matching k
 
-Each of these operations
+To implement each of the above function, the general algorithm is:
 
+* calculate $$i = hash(k)$$, $$i$$ is the hash index
+* use $$i$$ to access $$array[i]$$and perform the necessary operation on array\[i\].
+* For example if we called insert\(k,v\) we start by calculaing $$hash(k)$$.  This will produce a hashindex i.
+* We then place $$(k,v)$$into $$array[i]$$.  
 
+{% hint style="info" %}
+Think of an operation as being performed on array\[hash\(k\)\] instead of using k directly as the index.
+{% endhint %}
 
 The basics of hash tables are very simple but there are a number of problems that we must deal with
 
@@ -62,51 +65,110 @@ The basics of hash tables are very simple but there are a number of problems tha
 
 ### The pigeon hole principle
 
-Suppose you had n mailboxes and m letters where m &gt; n  \(more letters than mailboxes\).  If that is the case then at least one mailbox must contain 2 letters.    This is effectively what the situation is with our hash function and keys.  The number of mailboxes we have is n \(size of array\).  The total number of possible keys in $$U$$is bigger than n \(usually significantly bigger\).  Thus $$| U | > n$$.  What this means is that the hash function must return the same value for at least two different keys.
+Suppose you had n mailboxes and m letters where m &gt; n  \(more letters than mailboxes\).  If that is the case then at least one mailbox must contain 2 letters.    This is effectively what the situation is with our hash function and keys.  The number of mailboxes we have is n \(capacity of array\).  The total number of possible keys is m.  Usually the total number of possible keys is bigger than the capacity of the array. \(usually significantly bigger\).  Based on the pigeon hole principle, what this means is that the hash function must return the same value for at least two distinct keys.
 
-Suppose the hash table were to contain two distinct keys $$k_1$$and $$k_2$$.  A _**collision**_ occurs if $$hashfunction(k_1) == hashfunction(k_2)$$.  
+Suppose the hash table were to contain two distinct keys $$k_1$$and $$k_2$$.  A _**collision**_ occurs if $$hash(k_1) == hash(k_2)$$.  
 
 Our implementation of hash tables therefore must be able to deal with collisions.
 
 ## Collision Resolution
 
-## Chaining
+Collision resolution is the process of dealing with collisions.  In general there are two forms general methods for dealing with collisions.  Closed Addressing and Open addressing. 
 
-At every location \(hash index\) in your hash table store a linked list of items. Some space will still be wasted for the pointers but not nearly as much as bucketing. Table will also not overflow \(ie no pre-defined number of buckets to exceed\). You will still need to conduct a short linear search of the linked list but if your hash function uniformly distributes the items, the list should not be very long
+A closed addressing system, the key value pair $$(k,v)$$ must be stored at index $$hash(k)$$, while in open addressing systems we allow $$(k,v)$$ to be stored elsewhere \(but in a predictable manner\).  This next sections looks at how this is done.
 
-### Linear Probing
+### Closed Addressing - Chaining
 
-Both bucketing and chaining essentially makes use of a second dimension to handle collisions. This is not the case for linear probing. Linear Probing uses just a regular one dimensional array.
+Chaining is a simple way of handling collisions.  Instead of storing the key-value pair $$(k,v)$$ into the array directly, chaining creates an array of linked lists, initially all empty.  For each operation involving key $$k$$
 
-### Insertion
+* calculate  $$ i = hash(k) $$
+* perform operation \(insert/delete/search\) on the linked list at array\[i\]
 
-The insertion algorithm is as follows:
+#### Example
 
-* use hash function to find index for a record
-* If that spot is already in use, we use next available spot in a "higher" index.
-* Treat the hash table as if it is round, if you hit the end of the hash table, go back to the front
+Suppose we were to have 6 keys $$ (k_1, k_2, k_3, k_4,k_5, k_6)$$.  The hash function returns as follows for these keys:  $$(hash(k_1) == 0, hash(k_2) == m-3, hash(k_3) ==m-1, hash(k_4) == m-3, hash(k_5) == 0, hash(k_6) == m-3$$
 
-Each contiguous group of records \(groups of record in adjacent indices without any empty spots\) in the table is called a cluster.
+A table created using chaining would store records as follows \(note that only key's are shown in diagram for brevity\)
+
+![](.gitbook/assets/chaining1.png)
+
+#### Worst case run time
+
+_**insert\(k,v\)**_ - cost to find the correct linked list + cost to search for k within the linked list, + cost to add new node or modify existing if k is found
+
+_**search\(k\)**_ - cost to find the correct linked list + cost to search for k within the linked list
+
+_**delete\(k\)**_ - cost to find the correct linked list + cost to search for k within the linked list + cost to remove a node from list
+
+In each of the above cases, cost of to find the correct linked list is $$ \theta(1) $$ assuming that the cost of calculating hash is constant relative to number keys.  We simply need to calculate the hash index, then go to that location
+
+The cost to add a node, modify a node or delete a node \(once node has been found\) is $$\theta(1)$$ as that is the cost to remove/insert into linked list given pointers to appropriate nodes
+
+The cost to search through linked list depends on number of nodes in the linked list.  At worst, every single key hashes into exactly the same index.  If that is the case, the run time would be $$\theta(n)$$
+
+Thus,  the worst case run time is $$\theta(n)$$.  In reality of course, the performance is signficantly better than this and you typically don't encounter this worst case behaviour.  Notice that the part that is slow is the search along the linked list.  If our linked list is relatively short then the cost to search it would also not take very long.
+
+#### Average case run time
+
+We begin by making an assumption called Simple Uniform Hash Assumption \(SUHA\).  This is the assumption that any key is equally likely to hash to any slot.  
+
+
+
+## Open Addressing
+
+With hash tables where collision resolution is handled via open addressing, each record actually has a set of hash indexes where they can go.  If the first location at the first hash index is occupied, it goes to the second, if that is occupied it goes to the third etc.  The way this set of hash indexes is calculated depends on the probing method used \(and in implementation we may not actually generate the full set but simply apply the probing algorithm to determine where the "next" spot should be\).  We will begin by discussing the general algorithm used then look at how the various probing methods generate the set of indices for.
+
+###  Basic Storage
+
+Due to way open addressing works and how we will eventually need to handle insertion, each array element not only must hold the key value pair but it must also hold a status.  The status of each slot is:
+
+* empty - slot is empty, has never held any key-value pair, does not currently hold any record
+* used - slot is currently in used.  It holds a key-value pair.  Do not put anything into a spot that is used
+* deleted - slot use to hold a key-value pair but currently doesn't.  When we are looking for a record we need to continue searching when we see deleted slots \(more on this later\)
 
 ### Searching
+
+_**search\(k\)**_
 
 The search algorithm is as follows:
 
 * use hash function to find index of where an item should be.
-* If it isn't there search records that records after that hash location \(remember to treat table as cicular\) until either it found, or until an empty record is found. If there is an empty spot in the table before record is found, it means that the the record is not there.
-* NOTE: it is important not to search the whole array till you get back to the starting index. As soon as you see an empty spot, your search needs to stop. If you don't, your search will be incredibly slow
+* Check to see if the item's key matches that of key we are looking for
+* If it isn't there search for key-value pairs in the "next" slot according to the probing method until either it found, or until an we hit an empty slot.  Note that only empty slots stop searching not deleted slots
+* NOTE: it is important **not** to search the whole array till you get back to the starting index. As soon as you see an empty slot, your search needs to stop. If you don't, your search will be incredibly slow for any item that doesn't exist.
+
+### Insertion
+
+_**insert\(k,v\)**_
+
+The insertion algorithm is as follows:
+
+* search for record with matching key \(to ensure it isn't there\)
+* If it is there, simply replace the value with the v passed into insert
+* If it is not there, start looking for the first "open" spot. in the set of probed indices and place k,v there.
 
 ### Removal
 
-The removal algorithm is a bit trickier because after an object is removed, records in same cluster with a higher index than the removed object has to be adjusted. Otherwise the empty spot left by the removal will cause valid searches to fail.
+remove\(k\)
 
-The algorithm is as follows:
+The removal algorithm is as follows:
 
-* find record and remove it making the spot empty
-* For all records that follow it in the cluster, do the following:
-  * determine the hash index of the record
-  * determine if empty spot is between current location of record and the hash index.
-  * move record to empty spot if it is, the record's location is now the empty spot.
+* search for the record with matching key.
+* If you find it, mark the spot as deleted
+
+### Probing methods:
+
+#### Linear probing
+
+Linear probing is the simplest method of defining "next" index for open address hash tables.  Suppose hash\(k\) = i, then the next index is simply i+1, i+2, i+3, etc.  You should also treat the entire table as if its round \(front of array follows the back\).  Thus, the actual formula is: i, \(i+1\)%capacity, \(i+2\)%capacity,\(i+3\)%capacity etc.
+
+#### Quadratic Probing
+
+With linear probing everytime two records get placed beside each other in adjacent slots, we create a higher probability that a third record will result in a collision \(think of it as a target that got bigger\).  One way to avoid this is to use a different probing method so that records are placed further away instead of immediately next to the first spot.  In quadratic probing, instead of using i, i+1, i+2 etc.  we use: i, i+$$1^2$$, i+$$2^2$$, i+$$3^2$$  again we treat the hash table as if its round
+
+Double Hashing
+
+
 
 
 
