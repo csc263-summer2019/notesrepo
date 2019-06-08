@@ -143,13 +143,11 @@ _**insert\(k,v\)**_
 
 The insertion algorithm is as follows:
 
-* search for record with matching key \(to ensure it isn't there\)
-* If it is there, simply replace the value with the v passed into insert
-* If it is not there, start looking for the first "open" spot. in the set of probed indices and place k,v there.
+* If it is not there, start looking for the first "open" spot. in the set of probed indices and place k,v there.  An open spot is the first probe index that is either deleted or empty.
 
 ### Removal
 
-remove\(k\)
+_**remove\(k\)**_
 
 The removal algorithm is as follows:
 
@@ -160,13 +158,15 @@ The removal algorithm is as follows:
 
 #### Linear probing
 
-Linear probing is the simplest method of defining "next" index for open address hash tables.  Suppose hash\(k\) = i, then the next index is simply i+1, i+2, i+3, etc.  You should also treat the entire table as if its round \(front of array follows the back\).  Thus, the actual formula is: i, \(i+1\)%capacity, \(i+2\)%capacity,\(i+3\)%capacity etc.
+Linear probing is the simplest method of defining "next" index for open address hash tables.  Suppose hash\(k\) = i, then the next index is simply i+1, i+2, i+3, etc.  You should also treat the entire table as if its round \(front of array follows the back\). Suppose that m represents the number of slots in the table, We can thus describe our probing sequence as:  $$\{ hash(k), (hash(k)+1)\%m, (hash(k)+2) \% m, (hash(k)+3)\%m, \dots \} $$
 
 #### Quadratic Probing
 
-With linear probing everytime two records get placed beside each other in adjacent slots, we create a higher probability that a third record will result in a collision \(think of it as a target that got bigger\).  One way to avoid this is to use a different probing method so that records are placed further away instead of immediately next to the first spot.  In quadratic probing, instead of using i, i+1, i+2 etc.  we use: i, i+$$1^2$$, i+$$2^2$$, i+$$3^2$$  again we treat the hash table as if its round
+With linear probing everytime two records get placed beside each other in adjacent slots, we create a higher probability that a third record will result in a collision \(think of it as a target that got bigger\).  One way to avoid this is to use a different probing method so that records are placed further away instead of immediately next to the first spot.  In quadratic probing, instead of using  the next spot, we use a quadratic  formula in the probing sequence.  The general form of this algorithm for probe sequence i is: $$hash(k)+{c_1}i + {c_2}i^2$$.  At it's simplest we can use $$hash(k)+i^2$$.   Thus, we can use: $$\{ hash(k), (hash(k)+1)\%m, (hash(k)+4) \% m, (hash(k)+9)\%m, \dots \}$$
 
-Double Hashing
+#### Double Hashing
+
+In double hashing we have 2 different hash functions, $$hash_1(k)$$and $$hash_2(k)$$.  We use the first hash function to determine its general position, then use the second to calculate an offset for probes.  Thus the probe sequence is calculated as: $$ \{ hash_1(k), (hash_1(k) + hash_2(k))\%m, (hash_1(k) + 2 hash_2(k))\%m,  (hash_1(k) + 3 hash_2(k))\%m, \dots \} $$
 
 
 
