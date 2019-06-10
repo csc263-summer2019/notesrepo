@@ -160,9 +160,81 @@ The removal algorithm is as follows:
 
 Linear probing is the simplest method of defining "next" index for open address hash tables.  Suppose hash\(k\) = i, then the next index is simply i+1, i+2, i+3, etc.  You should also treat the entire table as if its round \(front of array follows the back\). Suppose that m represents the number of slots in the table, We can thus describe our probing sequence as:  $$\{ hash(k), (hash(k)+1)\%m, (hash(k)+2) \% m, (hash(k)+3)\%m, \dots \} $$
 
+#### Example of linear probing:
+
+Suppose we the following 6 keys and their associated hash indices \(these are picked  so that collisions will definitely occur\).  Let us then insert these 5 keys from k1 to k5 in that order.  
+
+| Key | Hash index |
+| :--- | :--- |
+| k1 | 8 |
+| k2 | 7 |
+| k3 | 9 |
+| k4 | 7 |
+| k5 | 8 |
+| k6 | 9 |
+
+Insert k1 to k3 \(no collisions, so they go to their hash indices\)
+
+![Insert k1, then k2, then k3](.gitbook/assets/hash2.png)
+
+Insert k4. probe sequence of k4 is $$\{ (7+0)\%10, (7+1)\%10 , (7+2)\%10, (7+3)\%10, (7+4)\%10, (7+5)\%10, \dots \} = \{7, 8, 9, 0, 1, 2 \dots \}$$.  Thus, we place k4 into index 0 because 7, 8 and 9 are all occupied
+
+![Insert k4](.gitbook/assets/hash3.png)
+
+Insert k5. probe sequence of k5 is $$\{ (8+0)\%10, (8+1)\%10 , (8+2)\%10, (8+3)\%10, (8+4)\%10, (8+5)\%10, \dots \} = \{8, 9, 0, 1, 2, 3 \dots \}$$.  Thus, we place k5 into index 1 because 8, 9 and 0 are all occupied
+
+![Insert k5](.gitbook/assets/hash4.png)
+
+Suppose we then decided to do a search.  First lets search for something that isn't there, k6.  k6's probe sequence is:  $$ \{ (9+0)\%10, (9+1)\%10 , (9+2)\%10, (9+3)\%10, (9+4)\%10, (9+5)\%10, \dots\ } = \{ 9, 0, 1, 2, 3, 4 \dots \}$$  is $$\{ (9+0)\%10, (9+1)\%10 , (9+2)\%10, (9+3)\%10, (9+4)\%10, (9+5)\%10, \dots \} = \{9, 0, 1, 2, 3, 4 \dots \}$$.  We begin looking at the first probe index.  We proceed until we get to index 2.  Since index 2 is empty, we can stop searching
+
+![search for k6 \(not in table\)](.gitbook/assets/hash6.png)
+
+If we were to search for something that is there \(k5 for example\), here is what we would do. Probe sequence for k5 is $$ \{8, 9, 0, 1, 2, 3 \dots \}$$.  Thus, we would start search at 8, we would look at indices 8,9,0, and 1.  At index 1 we find k5 so we stop
+
+![Search for k5 \(in table\)](.gitbook/assets/hash5.png)
+
+Suppose we delete k3.  All we need to do is find it, and mark the spot as deleted
+
+![delete k3](.gitbook/assets/hash7.png)
+
+When a spot is deleted, we still continue when we search... thus if we were to look for k5, we do not stop on deleted, we must keep going.
+
+![search for k5 \(in table\)](.gitbook/assets/hash8.png)
+
 #### Quadratic Probing
 
 With linear probing everytime two records get placed beside each other in adjacent slots, we create a higher probability that a third record will result in a collision \(think of it as a target that got bigger\).  One way to avoid this is to use a different probing method so that records are placed further away instead of immediately next to the first spot.  In quadratic probing, instead of using  the next spot, we use a quadratic  formula in the probing sequence.  The general form of this algorithm for probe sequence i is: $$hash(k)+{c_1}i + {c_2}i^2$$.  At it's simplest we can use $$hash(k)+i^2$$.   Thus, we can use: $$\{ hash(k), (hash(k)+1)\%m, (hash(k)+4) \% m, (hash(k)+9)\%m, \dots \}$$
+
+| Key | Hash index |
+| :--- | :--- |
+| k1 | 8 |
+| k2 | 7 |
+| k3 | 9 |
+| k4 | 7 |
+| k5 | 8 |
+| k6 | 9 |
+
+#### Quadratic Probing Example
+
+Insert k1 to k3 \(no collisions, so they go to their hash indices\)
+
+![Insert k1, then k2, then k3](.gitbook/assets/hash9.png)
+
+Insert k4. probe sequence of k4 is $$\{ (7+0^2)\%10, (7+1^2)\%10 , (7+2^2)\%10, (7+3^2)\%10, (7+4^2)\%10, (7+5^2)\%10, \dots \} = \{7, 8, 1, 6, 3, 2 \dots \}$$.  Thus, we place k4 into index 1 because 7 and 8 are both occupied
+
+![Insert k4](.gitbook/assets/hash10.png)
+
+Insert k5. probe sequence of k4 is $$\{ (8+0^2)\%10, (8+1^2)\%10 , (8+2^2)\%10, (8+3^2)\%10, (8+4^2)\%10, (8+5^2)\%10, \dots \} = \{8, 9, 2, 7, 4, 3 \dots \}$$.  Thus, we place k5 into index 2 because 8 and 9 are both occupied
+
+![Insert k5](.gitbook/assets/hash11.png)
+
+Likewise searching involves probing along its quadratic probing sequence.  Thus, searching for k6 involves the probe sequence  $$\{ (9+0^2)\%10, (9+1^2)\%10 , (9+2^2)\%10, (9+3^2)\%10, (9+4^2)\%10, (9+5^2)\%10, \dots \} = \{9, 0, 3, 8, 5, 4 \dots \}$$.   We search index 9, then index 0.  We can stop at this point as index 0 is empty
+
+![search for k6](.gitbook/assets/hash12.png)
+
+
+
+
 
 #### Double Hashing
 
@@ -170,7 +242,14 @@ In double hashing we have 2 different hash functions, $$hash_1(k)$$and $$hash_2(
 
 
 
-
+| Key | Hash1\(key\) | Hash2\(key\) |
+| :--- | :--- | :--- |
+| k1 | 8 | 6 |
+| k2 | 7 | 2 |
+| k3 | 9 | 5 |
+| k4 | 7 | 4 |
+| k5 | 8 | 3 |
+| k6 | 9 | 2 |
 
 
 
