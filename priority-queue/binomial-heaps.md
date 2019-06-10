@@ -84,6 +84,32 @@ lowest degree is the same - Combine the two trees into one.  Remember that $$B_k
 
 At worst, we will end up needing to combine 3 trees of the same degree \(2 from the original tree, plus one more created as a result of merging two previous trees\).  
 
+#### Example of Union Operation
+
+Begin with two heaps $$H_1$$and $$H_2$$
+
+![](../.gitbook/assets/binomialheap4.png)
+
+Merge the heaps together into one heap.  No nodes are combined at this point.. we simply ensure that the degree of each tree increases in the merged tree
+
+![](../.gitbook/assets/binomialheap5.png)
+
+As the first two binomial trees have the same degree, we combine them by making the tree with the bigger value the root, Make the tree with the larger root the root of the combined tree, the smaller tree gets attached as the left child of the tree with the  larger root
+
+![](../.gitbook/assets/binomialheap6.png)
+
+we then merge the new first tree and the second tree
+
+![](../.gitbook/assets/binomialheap7.png)
+
+First three trees have same degree.  Thus, we merge the second and third trees
+
+![](../.gitbook/assets/binomialheap8.png)
+
+now we combine the last two trees
+
+![](../.gitbook/assets/binomialheap9.png)
+
 ### Insert
 
 Insert begins by creating adding a single node into the Heap \(A $$B_0$$tree\).  If there are no other $$B_0$$ trees we are done.  If there are, we combine the trees \(like just like the union algorithm\) forming a $$B_1$$tree.  We continue to combine trees in this manner until we get a tree with a unique degree
