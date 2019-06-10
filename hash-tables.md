@@ -251,7 +251,19 @@ In double hashing we have 2 different hash functions, $$hash_1(k)$$and $$hash_2(
 | k5 | 8 | 3 |
 | k6 | 9 | 2 |
 
+Double uses a second hash function to calculating a probing offset.  Thus, the first hash function locates the record \(initial probe index\)... should there be a collision, the next probe sequence is a hash2\(key\) away.  
 
+Again we start off with hashing k1, k2 and k3 which do not have any collisions
+
+![Insert k1,k2 and k3](.gitbook/assets/hash14.png)
+
+Insert k4. probe sequence of k4 is $$\{ (7+0 (4))\%10, (7+1(4))\%10 , (7+2(4))\%10, (7+3(4))\%10, \dots \} = \{7, 1, 5, 9,  \dots \}$$.  Thus, we place k4 into index 1 because 7 was occupied
+
+![Insert k4, ](.gitbook/assets/hash15.png)
+
+Insert k5. probe sequence of k5 is $$\{ (8+0 (3))\%10, (8+1(3))\%10 , (8+2(3))\%10, (8+3(3))\%10, \dots \} = \{8, 1, 4, 7,  \dots \}$$.  Thus, we place k5 into index 4 because 8 and 1 were occupied
+
+![Insert k5](.gitbook/assets/hash16a.png)
 
 
 
