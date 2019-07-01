@@ -14,4 +14,10 @@
 * [AVL Trees](avl-trees.md)
 * [Red Black Tree](red-black-tree.md)
 * [Hash Tables](hash-tables.md)
+* [Randomized Quicksort](randomized-quicksort.md)
+* [Disjoint Sets](disjoint-sets.md)
+* [Amortized Algorithms](amortized-algorithms.md)
+* [Graphs](graphs.md)
+* [Appendix A: Math Review](appendix-a-math-review.md)
+* [Appendix B: Probability Review](appendix-b-probability-review.md)
 
