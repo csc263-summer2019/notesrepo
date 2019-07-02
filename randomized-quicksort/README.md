@@ -3,7 +3,7 @@
 When we we perform worst case analysis, we find the longest path through a piece of code and assume that it is the path the program will take.  We establish the circumstance under which the longest path would be taken and analyze based on that.
 
 {% hint style="info" %}
-Before beginning this section you may wish to look at [Appendix B](appendix-b-probability-review.md) for a quick probability theory review
+Before beginning this section you may wish to look at [Appendix B](../appendix-b-probability-review.md) for a quick probability theory review
 {% endhint %}
 
 With average case it is different.  Average case analysis looks at how a piece of code will behave on average.

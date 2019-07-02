@@ -23,11 +23,9 @@ etc
 
 It would be very fast to look up/or update a frequency.  
 
-However what if what we wanted to track a larger set of possible keys?  For example suppose we wanted to track the frequency of ascii digrams \(2 character combos\).  We would have 256\*256 = 65 536 ranging from 0 to 65 535.  Relatively speaking this is still a very small number of keys so we can use the same method.  Just need to convert each character to an index by doing something like $$c1(256) + c2$$ . where $$c1$$ and $$c2$$ are the ASCII encoding of the first and second characters of the digrams respectively.
+However what if what we wanted to track a larger set of possible keys?  For example suppose we wanted to track the frequency of ascii digrams \(2 character combos\).  We would have 256\*256 = 65 536 ranging from 0 to 65 535.  Relatively speaking this is still a very small number of keys so we can use the same method.  Just need to convert each character to an index by doing something like $$c1(256) + c2$$ . where $$c1$$ and $$c2$$ are the ASCII encoding of the first and second characters of the digrams respectively. 
 
-Now, what if we wanted to count the frequency of every word \(defined as 1 or more alphanumeric characters separated by 1 or more non-alphanumeric characters\).  
-
-What if it was bigger still?  What if instead of storing the frequency of letters, we wanted to store the frequency of words within a file \(defined as a string of alphanumeric characters separated by 1 or more non-alphanumeric characters\).  This could potentially be an infinitely large set of possible keys as there is no limit on the word length.  Even if we were to limit the number of characters to some maximum wordlength m?  If we did this, then for each character in the word there are 62 possibilities \(26 upper, 26 lower, 10 numeric\).  Thus, the number of possible keys length exactly m is 62^m.  It doesn't take a very large m before the number of possible words become too big to give each of them an element with an array \(our array would have to be huge\).
+What if it was bigger still?  What if instead of storing the frequency of letters, we wanted to store the frequency of words within a file \(defined as a string of alphanumeric characters separated by 1 or more non-alphanumeric characters\).  This could potentially be an infinitely large set of possible keys as there is no limit on the word length.  Even if we were to limit the number of characters to some maximum wordlength m?  If we did this, then for each character in the word there are 62 possibilities \(26 upper, 26 lower, 10 numeric\).  Thus, the number of possible keys length exactly m long is $$62^m$$.  It doesn't take a very large m before the number of possible words become too big to give each of them an element within an array \(our array would have to be huge\).
 
 Note that most of these potential keys are not actually likely to exist in the text file.  Thus, we only need to store information about the words that actually do exist.  The solution to this problem is a hash table
 
@@ -110,7 +108,9 @@ Thus,  the worst case run time is $$\theta(n)$$.  In reality of course, the perf
 
 #### Average case run time
 
-We begin by making an assumption called Simple Uniform Hash Assumption \(SUHA\).  This is the assumption that any key is equally likely to hash to any slot.  
+We begin by making an assumption called Simple Uniform Hash Assumption \(SUHA\).  This is the assumption that any key is equally likely to hash to any slot. The question then becomes how long are our linked lists?  This largely depends on the load factor $$\alpha = n/m $$ where n is the number of items stored in the linked list and m is the number of slots.  The average run time  is $$\theta( 1 + \alpha)$$
+
+ 
 
 
 
