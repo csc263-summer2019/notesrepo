@@ -8,9 +8,9 @@ With the ADT for organizing disjoint sets we aren't really interested in the ele
 
 | Operation Name | Description |
 | :--- | :--- |
-| MakeSet\(x\) | given an element x that is not in any set, make a new set with x as its only element |
-| FindSet\(x\) | given x, return the representative member of the set containing x |
-| Union\(i,j\) | Given two sets with representatives i and j, form a new set that consists of $$S_i \cup S_j$$, and remove both $$S_i$$and $$S_j$$from the set \(leaving only the new unioned set\) .  We pick a new representative element from this union.  We can do this by using one of the original representatives of $$S_i$$or $$S_j$$though we don't have to do it this way. |
+| makeSet\(x\) | given an element x that is not in any set, make a new set with x as its only element |
+| findSet\(x\) | given x, return the representative member of the set containing x |
+| union\(i,j\) | Given two sets with representatives i and j, form a new set that consists of $$S_i \cup S_j$$, and remove both $$S_i$$and $$S_j$$from the set \(leaving only the new unioned set\) .  We pick a new representative element from this union.  We can do this by using one of the original representatives of $$S_i$$or $$S_j$$though we don't have to do it this way. |
 
 ## Use Case
 
@@ -43,7 +43,7 @@ for each edge e=(v1,v2) in G{
 Firstly it should be noted that what we are effectively doing is this:
 
 * call makeSet\(\) \|V\| times
-* call Union\(\) \|E\| times
+* call union\(\) \|E\| times
 * call findSet\(\) 2\|E\| times \(two for each union\)
 
 We are not particularly interested in the cost of a single operation of Union\(\) or findSet\(\).  Instead we are more interested in the cost of how much it would cost in total for the entire sequence of m operations needed to create the disjoint set.
@@ -65,7 +65,7 @@ We are not particularly interested in the cost of a single operation of Union\(\
   * make end of j point to front of i
   * make end of i point to front of j
   * make last\_ the end of j   //sort of optional as the whole thing is circular...
-* findSet\(x\) - traverse list till you find the last node.  Potentially this will require traversing the entire list.  $$\theta(length of linked list)$$
+* findSet\(x\) - traverse list till you find the last node.  Potentially this will require traversing the entire list.  $$\theta$$\(length of linked list\)
 
 ### Idea 2: linked list with back pointer as well as a pointer to rep in each node
 
@@ -80,19 +80,21 @@ We are not particularly interested in the cost of a single operation of Union\(\
 * findSet\(x\) - O\(1\) - follow pointer from node to its rep
 * Union\(i,j\) - append j to i.  The appending part is easy... and is O\(1\).  However, the nodes in the second list is not pointing to correct rep.  Go through second list and make it point to the new rep
 
-
-
-
-
 Now... what is the cost of the above algorithm?
 
 * call make set$$|V|$$ times.
 * we have to call union\(\)  $$|E|$$times.
 * each time we call union we have to call findSet\(\) twice $$ 2(|E|)$$
 
-Note that the above are just function calls... we need to account for the cost of each call.  We aren't interested in the run time of a single call to findSet\(\), makeSet\(\) or union\(\).   Now.. how long it takes for each individual operation depends on things like how we represent our disjoint sets, how many elements are in each of the disjoint sets etc.  So lets suppose we can come up with the worst case run time for each of these based on how many elements are in each of the sets... but is the cost actually that that bad?  Suppose we need to perform m operations in total \(for above m = \|V\|+3\|E\|\).  We can find the worst case run time for each of the above functions then multiply it by m.  
+Note that the above are just function calls... we need to account for the cost of each call.  We aren't interested in the run time of a single call to findSet\(\), makeSet\(\) or union\(\) because it doesn't solve the whole problem.  We want to know how long it would take for our entire algorithm with all the calls.
 
-But... that is actually an over estimate of the cost.  In the case of the above, we actually don't really care about the cost of a single operation.  What we want to know is given a sequence of operation, what is the total cost of creating the disjoint set?
+ Now.. how long it takes for each individual operation depends on things like how we represent our disjoint sets, how many elements are in each of the disjoint sets etc.  So lets suppose we can come up with the worst case run time for each of these based on how many elements are in each of the sets... but is the cost actually that that bad?  Suppose we need to perform m operations in total \(for above m = \|V\|+3\|E\|\).  We can find the worst case run time for each of the above functions then multiply it by m.
+
+
+
+  
+
+But... that is actually an over estimate of the cost.   In the case of the above, we actually don't really care about the cost of a single operation.  What we want to know is given a sequence of operation, what is the total cost of creating the disjoint set?
 
 
 
