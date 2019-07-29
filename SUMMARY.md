@@ -19,6 +19,8 @@
 * [Disjoint Sets](disjoint-sets.md)
 * [Amortized Algorithms](amortized-algorithms.md)
 * [Graphs](graphs.md)
+* [Breadthfirst Search](breadthfirst-search.md)
+* [Depth First Search](depth-first-search.md)
 * [Appendix A: Math Review](appendix-a-math-review.md)
 * [Appendix B: Probability Review](appendix-b-probability-review.md)
 

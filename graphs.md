@@ -33,5 +33,23 @@ To store the info about a graph, there are two general approaches.
 
 These can each have its own advantages and disadvantages:
 
+### Adjacency Matrix:
+
+An adjacency matrix is in essence a 2 dimensional array. Each index value represents a node. When given 2 nodes, you can find out whether or not they are connected by simply checking if the value in corresponding array element is 0 or not. For graphs without weights, 1 represents a connection. 0 represents a non-connection.
+
+Weights on edges can be stored by replacing the 1 with the weight
+
+Directions can be stored by designating one index as _**from**_ and one index as _**to**_
+
+The advantage of an adjacency matrix is that it is a simple representation.  It is also capable of answering the question "is vertex U connected to vertex V?" very quickly $$\theta(1)$$.  Similarly it is also very fast at finding the weight on the edge between two vertices.  
+
+The disadvantages however are this... unless every vertex is connected to nearly every other vertex, most of the entries in the graph will be 0s.  The storage needed for an adjacency matrix is $$|V|^2$$.  Furthermore, while the adjacency matrix answers the question "is vertex U connected to vertex V?" very quickly.  It cannot answer the question "what vertices are connected to vertex V" quickly.  It must travel along an entire row of the 2D array to look for non-zero values, thus the run time is $$\theta(|V|)$$
+
+### Adjacency List:
+
+An adjacency list is an array of linked lists.  For each vertex in G, create of vertices that can be reached by following just one edge
+
+This is a much more compact way to represent a graph.  It is especially good if there are many vertices and few edges coming from each vertex.
+
 
 
