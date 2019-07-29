@@ -31,9 +31,9 @@ To store the info about a graph, there are two general approaches.
 * Adjacency list
 * Adjacency matrix
 
-These can each have its own advantages and disadvantages:
+These can each have its own advantages and disadvantages.
 
-### Adjacency Matrix:
+### Adjacency Matrix
 
 An adjacency matrix is in essence a 2 dimensional array. Each index value represents a node. When given 2 nodes, you can find out whether or not they are connected by simply checking if the value in corresponding array element is 0 or not. For graphs without weights, 1 represents a connection. 0 represents a non-connection.
 
@@ -52,4 +52,18 @@ An adjacency list is an array of linked lists.  For each vertex in G, create of 
 This is a much more compact way to represent a graph.  It is especially good if there are many vertices and few edges coming from each vertex.
 
 
+
+An adjacency matrix represents a graph using a 2D array.  Each index value represents a specific vertex.  The existence of an edge between two vertices is represented as a 1 for unweighted graphs and the weight for weighted graphs.  For directed graphs, we use one index to represent the vertice the edge starts at at and the other for where it is going.
+
+The advantage of an adjacency matrix is that it is very fast in finding if there is an edge or the weight of the edge between two vertices u and v.  There are two main disadvantages of this presentation.  The first is storage... the amount of storage needed is $$O(|V|^2)$$ Often graphs have many vertices with relatively fewer edges.  Most of the values in the array would thus be 0.  Furthermore, while the question of whether or not two vertices are connected is very fast to find using the adjacency matrix representation, finding the list of the vertices connected to a given vertex is much slower $$O(|V|)$$.  
+
+### Adjacency List
+
+An adjacency matrix represents a graph as an array of linked lists.  The index of each element of the array represents a vertex.  Each node of the linked list stores a vertex representing an edge between the vertex of the array element and the vertex in the node.
+
+The advantage of an adjacency list is that finding the list of the vertices connected to a given vertex is simply the number of vertices connected to the given vertex \(we don't have to look at any vertex that isn't connected\).  
+
+
+
+### Adjacency Matrix:
 
