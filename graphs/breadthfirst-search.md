@@ -10,6 +10,8 @@ To perform a BFS on a graph, we keep track of the status of each vertex with a c
 
 How these colour come into play will be clear once we look at the algorithm.
 
+Other than the colour, each vertex also tracks its previous pointer \(
+
 We are going to look at how a breadthfirst search will work using the following graph, starting using vertex A as our starting point.  the graph's adjacency matrix and adjacency list are also shown.
 
 ![](../.gitbook/assets/graph4.png)
@@ -21,6 +23,8 @@ To support a breadthfirst search, we will use a _**queue**_.  Recall that a queu
 * front\(\) - returns oldest item in the queue
 
 All above operations can be implemented with an O\(1\) runtime with either array or linked list.
+
+
 
 
 
