@@ -112,7 +112,7 @@ now we combine the last two trees
 
 ### Insert
 
-Insert begins by creating adding a single node into the Heap \(A $$B_0$$tree\).  If there are no other $$B_0$$ trees we are done.  If there are, we combine the trees \(like just like the union algorithm\) forming a $$B_1$$tree.  We continue to combine trees in this manner until we get a tree with a unique degree
+Insert begins by creating adding a single node into the heap.  This new node forms a $$B_0$$tree.  If there are no other $$B_0$$ trees we are done.  If there are, we combine the trees \(just like the union algorithm\) forming a $$B_1$$tree.  We continue to combine trees in this manner until we get a tree with a unique degree
 
 ### Extract Minimum
 
