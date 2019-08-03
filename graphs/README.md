@@ -41,11 +41,11 @@ An adjacency matrix is in essence a 2 dimensional array. Each index value repres
 
 Weights on edges can be stored by replacing the 1 with the weight
 
-Directions can be stored by designating one index as _**from**_ and one index as _**to.**_   Typically, array\[from\]\[to\] is marked as one if there is an edge from $$ v_{from}$$to $$v_{to}$$.  
+Directions can be stored by designating one index as _**from**_ and one index as _**to.**_   Typically, array\[from\]\[to\] is marked as 1 if there is an edge from $$ v_{from}$$to $$v_{to}$$.  
 
-The advantage of an adjacency matrix is that it is a simple representation.  It is also capable of answering the question "is vertex u connected to vertex v?"  or in the case of a directed graph "is there an edge from vertex u to vertex v?" very quickly $$\theta(1)$$.  Similarly it is also very fast at finding the weight on the edge between two vertices.  
+The advantage of an adjacency matrix is that it is a simple representation.  It is also capable of answering the question "is vertex $$u$$ connected to vertex $$v$$?"  or in the case of a directed graph "is there an edge from vertex $$u$$ to vertex $$v$$?" very quickly $$\theta(1)$$.  Similarly it is also very fast at finding the weight on the edge between two vertices.  
 
-The disadvantages however are this... unless every vertex is connected to nearly every other vertex, most of the entries in the graph will be 0s.  The storage needed for an adjacency matrix is $$|V|^2$$.  Furthermore, while the adjacency matrix answers the question "is vertex u connected to vertex v?" very quickly.  It cannot answer the question "what vertices are connected to vertex v?" nearly as quickly.  It must travel along an entire row of the 2D array to look for non-zero values, thus the run time is $$\theta(|V|)$$
+The disadvantages however are this... unless every vertex is connected to nearly every other vertex, most of the entries in the graph will be 0s.  The storage needed for an adjacency matrix is $$|V|^2$$.  Furthermore, while the adjacency matrix answers the question "is vertex $$u$$ connected to vertex $$v$$?" very quickly.  It cannot answer the question "what vertices are connected to vertex $$u$$?" nearly as quickly.  It must travel along an entire row for vertex$$u$$of the 2D array to look for non-zero values, thus the run time is $$\theta(|V|)$$.  
 
 ### Adjacency List:
 
@@ -53,11 +53,15 @@ An adjacency list is an array of linked lists.  For each vertex in G, create a l
 
 This is a much more compact way to represent a graph.  It is especially good if there are many vertices and few edges coming from each vertex.
 
-An adjacency matrix represents a graph using a 2D array.  Each index value represents a specific vertex.  The existence of an edge between two vertices is represented as a 1 for unweighted graphs and the weight for weighted graphs.  For directed graphs, we use one index to represent the vertice the edge starts at at and the other for where it is going.
+An adjacency list uses less storage to store a graph if there are many vertices with few edges for each vertex.
 
-The advantage of an adjacency matrix is that it is very fast in finding if there is an edge or the weight of the edge between two vertices u and v.  There are two main disadvantages of this presentation.  The first is storage... the amount of storage needed is $$O(|V|^2)$$ Often graphs have many vertices with relatively fewer edges.  Most of the values in the array would thus be 0.  Furthermore, while the question of whether or not two vertices are connected is very fast to find using the adjacency matrix representation, finding the list of the vertices connected to a given vertex is much slower $$O(|V|)$$.  
+An adjacency list is not as fast at answering the question "Is $$u$$ connected to $$v$$?" as quickly as an adjacency matrix.  To answer that question, you would need to go to the linked list at the index for $$u$$then go through the link list looking for $$v$$.  The more edges $$u$$have, the longer it takes to determine if there is an edge to $$v$$. 
+
+An adjacency list is good at answering the question "what vertices are connected to vertex $$u$$?".  Essentially the entire linked list at $$u$$ is the answer.  
 
 ###  Examples
+
+These diagrams provide a visual example of graph representations
 
 ![Representation of an undirected graph](../.gitbook/assets/graph4.png)
 
