@@ -2,6 +2,8 @@
 
 Breadth-first search \(BFS\) is a method of traversing a graph $$G=(V,E)$$ starting from a source $$ s \in V $$.   BFS starts from a source vertex $$s$$.  It will then _**visits**_ every vertex $$v$$ reachable from $$s$$  forming a BFS tree and thus finding paths from $$s$$ to $$v$$.  BFS visits nodes in order based on its distance from $$s$$.  That is, it will first visit all vertices that are directly connected to s then vertices that are two vertices away and so on.
 
+### Basic BFS Algorithm
+
 To perform a BFS on a graph, we keep track of the status of each vertex with a colour:
 
 * white - vertex is not yet discovered in any way
@@ -11,8 +13,6 @@ To perform a BFS on a graph, we keep track of the status of each vertex with a c
 How these colour come into play will be clear once we look at the algorithm.
 
 Other than the colour, each vertex also tracks its previous vertex and the distance from $$s$$
-
-### Basic BFS Algorithm
 
 To support a breadthfirst search, we will use a _**queue**_.  Recall that a queue is a FIFO data structure that supports 
 
@@ -48,7 +48,7 @@ BFS(G = (V,E), s){
     }
 ```
 
-We are going to look at how a breadthfirst search will work using the following graph, starting using vertex A as our starting point.  the graph's adjacency matrix and adjacency list are also shown.
+We are going to look at how a breadth first search will work using the following graph, starting using vertex A as our starting point.  the graph's adjacency matrix and adjacency list are also shown.
 
 ![](../.gitbook/assets/graph4.png)
 
