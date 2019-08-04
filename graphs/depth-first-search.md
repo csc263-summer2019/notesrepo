@@ -269,7 +269,7 @@ From F we can go to E and G. E is grey so we will visit G. Record its discovery 
 | F | 10 | $$\infty$$ | E | grey |
 | G | 11 | **12** | F | **black** |
 
-​Step 13
+#### ​Step 13
 
 We go back out to F.  F has no out edge to a white vertex so we are done.  We colour F black and set its finish time.
 
@@ -285,7 +285,7 @@ We go back out to F.  F has no out edge to a white vertex so we are done.  We co
 | F | 10 | **13** | E | **black** |
 | G | 11 | 12 | F | black |
 
-Step 14
+#### Step 14
 
 Finally we step back to E, colour it black and set its finish time.
 
