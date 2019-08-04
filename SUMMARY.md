@@ -21,6 +21,7 @@
 * [Graphs](graphs/README.md)
   * [Breadth-first Search](graphs/breadthfirst-search.md)
   * [Depth First Search](graphs/depth-first-search.md)
+  * [Minimal Spanning Trees](graphs/minimal-spanning-trees.md)
 * [Appendix A: Math Review](appendix-a-math-review.md)
 * [Appendix B: Probability Review](appendix-b-probability-review.md)
 

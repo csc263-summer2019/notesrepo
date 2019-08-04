@@ -20,6 +20,7 @@ To support a breadthfirst search, we will use a _**queue**_.  Recall that a queu
 * dequeue\(\) - removes oldest item from queue
 * front\(\) - returns oldest item in the queue
 * isEmpty\(\) - returns true if queue is empty
+* All above operations can be implemented with an O\(1\) runtime with either array or linked list. 
 
 ```cpp
 BFS(G = (V,E), s){
@@ -51,9 +52,9 @@ We are going to look at how a breadthfirst search will work using the following 
 
 ![](../.gitbook/assets/graph4.png)
 
-All above operations can be implemented with an O\(1\) runtime with either array or linked list. 
-
 #### Initial:
+
+![](../.gitbook/assets/bfs1.png)
 
 | Vertex | Distance | $$pi$$ | colour |
 | :--- | :--- | :--- | :--- |
@@ -65,15 +66,15 @@ All above operations can be implemented with an O\(1\) runtime with either array
 | F | $$\infty$$ | NIL | white |
 | G | $$\infty$$ | NIL | white |
 
-![Initial State](../.gitbook/assets/bfs1.png)
-
 #### Step 1:
 
 Start with the starting vertex A, enqueue it to prime the loop
 
+![](../.gitbook/assets/bfs2.png)
+
 | Vertex | Distance | $$pi$$ | colour |
 | :--- | :--- | :--- | :--- |
-| A | 0 | NIL | grey |
+| **A** | **0** | **NIL** | **grey** |
 | B | $$\infty$$ | NIL | white |
 | C | $$\infty$$ | NIL | white |
 | D | $$\infty$$ | NIL | white |
@@ -81,78 +82,78 @@ Start with the starting vertex A, enqueue it to prime the loop
 | F | $$\infty$$ | NIL | white |
 | G | $$\infty$$ | NIL | white |
 
-![Begin by enqueuing the starting vertex](../.gitbook/assets/bfs2.png)
-
 #### Step 2:
 
 Enqueue the B and C as there is an edge from A to B and from A to C.  At this point, A is now black because it is explored.  B and C are encountered because we have looked at them, who their previous is as well as their distance to starting point
 
+![](../.gitbook/assets/bfs3.png)
+
 | Vertex | Distance | $$pi$$ | colour |
 | :--- | :--- | :--- | :--- |
-| A | 0 | NIL | black |
-| B | 1 | A | grey |
-| C | 1 | A | grey |
+| A | 0 | NIL | **black** |
+| **B** | **1** | **A** | **grey** |
+| **C** | **1** | **A** | **grey** |
 | D | $$\infty$$ | NIL | white |
 | E | $$\infty$$ | NIL | white |
 | F | $$\infty$$ | NIL | white |
 | G | $$\infty$$ | NIL | white |
 
-![Explore A, enqueue B and C and update the distance](../.gitbook/assets/bfs3.png)
-
 #### Step 3
 
 Continue by removing vertex at front of queue and process the edges from that vertex.  Thus, remove B, enqueue G and E \(but not A because it is no longer coloured white\) updating distance and pi values for G and E.  As they are now encountered they are coloured grey.  Make B black as it is now explored
 
+![](../.gitbook/assets/bfs4.png)
+
 | Vertex | Distance | $$pi$$ | colour |
 | :--- | :--- | :--- | :--- |
 | A | 0 | NIL | black |
-| B | 1 | A | black |
+| B | 1 | A | **black** |
 | C | 1 | A | grey |
 | D | $$\infty$$ | NIL | white |
-| E | 2 | B | grey |
+| **E** | **2** | **B** | **grey** |
 | F | $$\infty$$ | NIL | white |
-| G | 2 | B | grey |
-
-![Explore B, enqueue E and G](../.gitbook/assets/bfs4.png)
+| **G** | **2** | **B** | **grey** |
 
 #### Step 4
 
 Continue by removing vertex at front of queue and process the edges from that vertex.  Thus, remove C, enqueue D \(but not A because it is no longer coloured white\) updating distance and pi values for D.  As it is now encountered they are coloured grey. Make C black as it is now explored
 
+![](../.gitbook/assets/bfs5.png)
+
 | Vertex | Distance | $$pi$$ | colour |
 | :--- | :--- | :--- | :--- |
 | A | 0 | NIL | black |
 | B | 1 | A | black |
-| C | 1 | A | black |
-| D | 2 | C | grey |
+| C | 1 | A | **black** |
+| **D** | **2** | **C** | **grey** |
 | E | 2 | B | grey |
 | F | $$\infty$$ | NIL | white |
 | G | 2 | B | grey |
-
-![Explore C, enqueue D](../.gitbook/assets/bfs5.png)
 
 #### Step 5
 
 Continue by removing vertex at front of queue and process the edges from that vertex.  Thus, remove E, enqueue F \(but not D or B because they are no longer coloured white\) updating distance and pi values for F.  As it is now encountered they are coloured grey. Make E black as it is now explored
 
+![](../.gitbook/assets/bfs6.png)
+
 | Vertex | Distance | $$pi$$ | colour |
 | :--- | :--- | :--- | :--- |
 | A | 0 | NIL | black |
 | B | 1 | A | black |
 | C | 1 | A | black |
 | D | 2 | C | grey |
-| E | 2 | B | black |
-| F | 3 | E | grey |
+| E | 2 | B | **black** |
+| **F** | **3** | **E** | **grey** |
 | G | 2 | B | grey |
 
 ####  
-
-![Explore E, enqueue F](../.gitbook/assets/bfs6.png)
 
 #### Step 6
 
 Remove G, nothing to enqueue as B and F are not white. Make G black as it is now explored
 
+![](../.gitbook/assets/bfs7.png)
+
 | Vertex | Distance | $$pi$$ | colour |
 | :--- | :--- | :--- | :--- |
 | A | 0 | NIL | black |
@@ -161,32 +162,30 @@ Remove G, nothing to enqueue as B and F are not white. Make G black as it is now
 | D | 2 | C | grey |
 | E | 2 | B | black |
 | F | 3 | E | grey |
-| G | 2 | B | black |
-
-![](../.gitbook/assets/bfs7.png)
-
-
+| G | 2 | B | **black** |
 
 #### Step 7
 
 Remove D, nothing to enqueue as C and E are not white. Make D black as it is now explored
 
+![](../.gitbook/assets/bfs8.png)
+
 | Vertex | Distance | $$pi$$ | colour |
 | :--- | :--- | :--- | :--- |
 | A | 0 | NIL | black |
 | B | 1 | A | black |
 | C | 1 | A | black |
-| D | 2 | C | black |
+| D | 2 | C | **black** |
 | E | 2 | B | black |
 | F | 3 | E | grey |
 | G | 2 | B | black |
-
-![](../.gitbook/assets/bfs8.png)
 
 #### Step 8
 
 dequeue F, nothing to enqueue as C and E are not white. Make D black as it is now explored
 
+![](../.gitbook/assets/bfs9.png)
+
 | Vertex | Distance | $$pi$$ | colour |
 | :--- | :--- | :--- | :--- |
 | A | 0 | NIL | black |
@@ -194,8 +193,6 @@ dequeue F, nothing to enqueue as C and E are not white. Make D black as it is no
 | C | 1 | A | black |
 | D | 2 | C | black |
 | E | 2 | B | black |
-| F | 3 | E | black |
+| F | 3 | E | **black** |
 | G | 2 | B | black |
-
-![](../.gitbook/assets/bfs9.png)
 
