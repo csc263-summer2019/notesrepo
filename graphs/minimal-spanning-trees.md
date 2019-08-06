@@ -80,7 +80,7 @@ Given the graph above, the edges sorted in non-descending order by weight are: \
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left">1</td>
+      <td style="text-align:left">Initial</td>
       <td style="text-align:left">
         <img src="../.gitbook/assets/kruskals1.png" alt/>
         <br />T= {}</td>
@@ -90,7 +90,7 @@ Given the graph above, the edges sorted in non-descending order by weight are: \
     </tr>
     <tr>
       <td style="text-align:left">
-        <p>2</p>
+        <p>1</p>
         <p></p>
       </td>
       <td style="text-align:left">
@@ -103,7 +103,7 @@ Given the graph above, the edges sorted in non-descending order by weight are: \
       <td style="text-align:left">(C,D) is added first. They were in different disjoint sets</td>
     </tr>
     <tr>
-      <td style="text-align:left">3</td>
+      <td style="text-align:left">2</td>
       <td style="text-align:left">
         <p>
           <img src="../.gitbook/assets/kruskals3.png" alt/>
@@ -114,7 +114,7 @@ Given the graph above, the edges sorted in non-descending order by weight are: \
       <td style="text-align:left">(F,G) is added next. They were not in the same disjoint set</td>
     </tr>
     <tr>
-      <td style="text-align:left">4</td>
+      <td style="text-align:left">3</td>
       <td style="text-align:left">
         <p>
           <img src="../.gitbook/assets/kruskals4.png" alt/>
@@ -125,7 +125,7 @@ Given the graph above, the edges sorted in non-descending order by weight are: \
       <td style="text-align:left">(A,B) is added next as they were not in the same disjoint set</td>
     </tr>
     <tr>
-      <td style="text-align:left">5</td>
+      <td style="text-align:left">4</td>
       <td style="text-align:left">
         <img src="../.gitbook/assets/kruskals5.png" alt/>
         <br />T={(C,D), (F,G),(A,B),(D,E)}</td>
@@ -133,7 +133,7 @@ Given the graph above, the edges sorted in non-descending order by weight are: \
       <td style="text-align:left">(D,E) is added next as they were not in the same disjoint set</td>
     </tr>
     <tr>
-      <td style="text-align:left">6</td>
+      <td style="text-align:left">5</td>
       <td style="text-align:left">
         <img src="../.gitbook/assets/kruskals6.png" alt/>
         <br />T={(C,D), (F,G),(A,B),(D,E),(A,C)}</td>
@@ -141,7 +141,7 @@ Given the graph above, the edges sorted in non-descending order by weight are: \
       <td style="text-align:left">(A,C) is added next, they were not in the same disjoint set</td>
     </tr>
     <tr>
-      <td style="text-align:left">7</td>
+      <td style="text-align:left">6</td>
       <td style="text-align:left">
         <p>
           <img src="../.gitbook/assets/kruskals7.png" alt/>
@@ -158,5 +158,146 @@ Given the graph above, the edges sorted in non-descending order by weight are: \
 
 ### Prim's Algorithm
 
+We pick a vertex $$v \in V$$ to be the "root" of the MST.  After that we simply grow the tree by joining isolated vertices one at a time.  An isolated vertex is any vertex that isn't part of the MST yet picking the smallest edge weight.  To support this, we will use a MinHeap.  We queue into this heap edges that will connect an isolated vertex with the current MST. We use infinity if there is no direct edge yet to any vertex in the MST
 
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Step</th>
+      <th style="text-align:left">Graph</th>
+      <th style="text-align:left">Heap (vertex, parent, weight to parent), listed with by priority (smaller
+        weight)</th>
+      <th style="text-align:left">Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">Initial</td>
+      <td style="text-align:left">
+        <p>
+          <img src="../.gitbook/assets/prims1.png" alt/>
+        </p>
+        <p>T={}</p>
+      </td>
+      <td style="text-align:left">
+        <p>(A, NIL,0)</p>
+        <p>(B, NIL,)</p>
+        <p>(C, NIL,)</p>
+        <p>(D, NIL,)</p>
+        <p>(E, NIL,)</p>
+        <p>(F, NIL,)</p>
+        <p>(G, NIL,)</p>
+      </td>
+      <td style="text-align:left">Initial state. pick A as root</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">1</td>
+      <td style="text-align:left">
+        <p>
+          <img src="../.gitbook/assets/prims1.png" alt/>
+        </p>
+        <p>T={}</p>
+      </td>
+      <td style="text-align:left">
+        <p></p>
+        <p>(B, A,2)</p>
+        <p>(C, A,3)</p>
+        <p>(D, NIL,)</p>
+        <p>(E, NIL,)</p>
+        <p>(F, NIL,)</p>
+        <p>(G, NIL,)</p>
+      </td>
+      <td style="text-align:left">update edge weights, parents of B and C</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">2</td>
+      <td style="text-align:left">
+        <p>
+          <img src="../.gitbook/assets/prims2.png" alt/>
+        </p>
+        <p>T={(A,B)}</p>
+      </td>
+      <td style="text-align:left">
+        <p>(C, A, 3)</p>
+        <p>(E, B, 4)</p>
+        <p>(G, B, 5)</p>
+        <p>(D, NIL,)</p>
+        <p>(F, NIL,)</p>
+      </td>
+      <td style="text-align:left">Take out vertex with smallest weight(B) and add edge to its parent to
+        the MST. update edge weights and parents of E and G</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">3</td>
+      <td style="text-align:left">
+        <p>
+          <img src="../.gitbook/assets/prims3.png" alt/>
+        </p>
+        <p>T={(A,B), (A,C)}</p>
+      </td>
+      <td style="text-align:left">
+        <p>(D, C, 1)</p>
+        <p>(E, B, 4)</p>
+        <p>(G, B, 5)</p>
+        <p>(F, NIL,)</p>
+      </td>
+      <td style="text-align:left">Take out vertex with smallest weight (C) and add edge to its parent to
+        the MST. update edge weights and parent of D.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">4</td>
+      <td style="text-align:left">
+        <img src="../.gitbook/assets/prims4.png" alt/>
+        <br />T={(A,B),(A,C),(C,D)}</td>
+      <td style="text-align:left">
+        <p>(E, D, 2)</p>
+        <p>(G, B, 5)</p>
+        <p>(F, NIL,)</p>
+      </td>
+      <td style="text-align:left">Take out vertex with smallest weight (D) and add edge to its parent to
+        the MST. update edge weights and parent of E because cost to E is less
+        going through D and not B.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">5</td>
+      <td style="text-align:left">
+        <p>
+          <img src="../.gitbook/assets/prims5.png" alt/>
+        </p>
+        <p>T={(A,B),(A,C),(C,D),(D,E)}</p>
+      </td>
+      <td style="text-align:left">
+        <p>(F, E, 4)</p>
+        <p>(G, B, 5)</p>
+      </td>
+      <td style="text-align:left">Take out vertex with smallest weight (E) and add edge to its parent to
+        the MST. update edge weights and parent of F</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">6</td>
+      <td style="text-align:left">
+        <p>
+          <img src="../.gitbook/assets/prims6.png" alt/>
+        </p>
+        <p>T={(A,B),(A,C),(C,D),(D,E),(E,F)}</p>
+      </td>
+      <td style="text-align:left">(G, F, 1)</td>
+      <td style="text-align:left">Take out vertex with smallest weight (F) and add edge to its parent to
+        the MST. update edge weights and parent of G because cost to G is less
+        going through F and not B.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">7</td>
+      <td style="text-align:left">
+        <p>
+          <img src="../.gitbook/assets/prims7.png" alt/>
+        </p>
+        <p>T={(A,B),(A,C),(C,D),(D,E),(E,F),(F,G)}</p>
+      </td>
+      <td style="text-align:left">&lt;empty&gt;</td>
+      <td style="text-align:left">Take out vertex with smallest weight (G) and add edge to its parent to
+        the MST.</td>
+    </tr>
+  </tbody>
+</table>
 
