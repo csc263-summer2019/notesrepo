@@ -19,6 +19,7 @@
 * [Disjoint Sets](disjoint-sets.md)
 * [Amortized Algorithms](amortized-algorithms/README.md)
   * [Aggregate Method](amortized-algorithms/aggregate-method.md)
+  * [Accounting Method](amortized-algorithms/accounting-method.md)
 * [Graphs](graphs/README.md)
   * [Breadth-first Search](graphs/breadthfirst-search.md)
   * [Depth First Search](graphs/depth-first-search.md)

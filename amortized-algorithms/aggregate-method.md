@@ -40,3 +40,54 @@ $$\sum\limits_{i=0}^{k-1} {\lfloor {m \over {2^{i}}}\rfloor}<= m \sum\limits_{i=
 
 Thus, the amortized cost is $${2m \over m } = 2$$ per increment\(\) operation.
 
+### Hash Table Resizing
+
+Going back to the hashtable resizing example.  We alter the insertion\(x\) function to something like:
+
+```text
+insert(x){
+    if(loadFactor() >= 0.5){
+        create new table with double the capacity
+        go through current table, for every non-nil element
+           rehash into new table
+    }
+    hashidx=hashfunction(x.key);
+    place x into table[hashidx], handle collision as needed
+}
+```
+
+For our purposes lets assume that except for the grow\(\) function, the rest of insertion\(\) is constant \(ie that our hash function will evenly distribute our data set evenly etc.\).  
+
+Now..lets say that we perform m operations, if we only call insert\(\) then grow\(\) will be called more often.  Now, lets suppose we start with an array of capacity 2 holding 0 records.  Which insert\(\) operations call grow\(\) and how many elements are copied when it does?
+
+| Operation | Number of elements | Capacity\(after\) | Load factor before | Load factor after | grow\(\)? |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Initial | 0 | 2 | 0 | 0 | - |
+| insert\(\) | 1 | 2 | 0 | 0.5 | No |
+| insert\(\) | 2 | 4 | 0.5 | 0.5 | Yes |
+| insert\(\)  | 3 | 8 | 0.5 | 0.375 | Yes |
+| insert\(\) | 4 | 8 | 0.375 | 0.5 | No |
+| insert\(\) | 5 | 16 | 0.5 | 0.3125 | Yes |
+| insert\(\)  | 6 | 16 | 0.3125 | 0.375 | No |
+| insert\(\)  | 7 | 16 | 0.375 | 0.4375 | No |
+| insert\(\) | 8 | 16 | 0.4375 | 0.5 | No |
+| insert\(\) | 9 | 32 | 0.5 | 0.28125 | Yes |
+
+Now.. if you take a look, we only grow at certain points.  we grow when i = 2,3,5, 9, ...17, 33 ... etc.
+
+How many times does grow occur over m operations?  $$\lceil log m\rceil$$
+
+now... each operation of grow\(\) though has a different cost because we are rehashing different number of elements?
+
+| grow count | ith insertion | grow\(\) cost |
+| :--- | :--- | :--- |
+| 1st grow\(\) | 2 | 1 = $$2^0$$ |
+| 2nd grow\(\) | 3 | 2 = $$ 2^1$$ |
+| 3rd grow\(\)... | 5 | 4 = $$2^2$$ |
+| 4th grow\(\) | 9 | 8 = $$2^3$$ |
+| ... | ... | ... |
+
+Thus, the cost of m insertion operations = cost of doing the insertion + cost of grow over m operations
+
+$$m + \sum\limits_{i=0}^{\lceil logm \rceil} 2^i <= m + \sum\limits_{i=0}^{(logm) + 1} 2^i  = m + 2^{(logm) +2}-1= m + 2^(logm)(2^2) -1 = m + 4m -1=5m-1$$
+
