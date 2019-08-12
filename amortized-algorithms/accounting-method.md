@@ -48,22 +48,164 @@ We can prove the above statement is true by induction.
 * We assume that the statement true, that every bit that has a 1 has a credit.  
 * We then apply the increment\(\) operator to the counter.  This increment operator will always change exactly 1 bit from 0 to 1, charge two, store 1 into that bit.  All other bits that were 0 will not change so they have no cost.  For any other 1 bit, there is is  credit to change it back to 0.
 
-### Example 2: Dynamic Array
+### Example 2: Hash table resize
 
-Consider a the implementation of an array with two basic operations:
+Going back to the hashtable resizing example:
 
-* append\(x\) - adds x to first free spot
-* delete\(\) - removes item from last occupied spot
+```text
+insert(x){
+    if(loadFactor() >= 0.5){
+        //grow
+        create new table with double the capacity
+        go through current table, for every non-nil element
+           rehash into new table
+    }
+    hashidx=hashfunction(x.key);
+    place x into table[hashidx], handle collision as needed
+}
+```
 
-\(see arraystack implementation in course repo\).
+For our purposes lets assume that except for the code to grow the array, the rest of insertion\(\) is constant \(ie that our hash function will evenly distribute our data set evenly etc.\).
 
-If we allocate too much space for this array, we waste space.  If we allocate too little space we run out.  Similar to hash table problem. Thus what we do is that after we fill up the array, create a new array with double the capacity, copy everything over 
+Using the accounting method, let us redo the analysis.  Lets start by simply charging $2 for each insertion operation.  That way we can use one to do the inserting and 1 to copy the element over when we grow.  Lets see if this work, using the same example as we had previously.  Any square that is filled is coloured blue.
 
-Firstly, because only append\(x\) grows the array, we will look at only performing append\(x\) operations.  Using the accounting method, we want to charge some amount for each operation in order to pay for future operations.
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Operation</th>
+      <th style="text-align:left">
+        <p>loadfactor</p>
+        <p>before insert()
+          <br />call</p>
+      </th>
+      <th style="text-align:left">Charge</th>
+      <th style="text-align:left">Cost</th>
+      <th style="text-align:left">Hash table</th>
+      <th style="text-align:left">Credit balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">Initial</td>
+      <td style="text-align:left">0</td>
+      <td style="text-align:left">-</td>
+      <td style="text-align:left">-</td>
+      <td style="text-align:left">
+        <img src="../.gitbook/assets/hashacct1.png" alt/>
+      </td>
+      <td style="text-align:left">0</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">insert()</td>
+      <td style="text-align:left">0</td>
+      <td style="text-align:left">2</td>
+      <td style="text-align:left">1</td>
+      <td style="text-align:left">
+        <img src="../.gitbook/assets/hashacct2.png" alt/>
+      </td>
+      <td style="text-align:left">+1</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">insert()</td>
+      <td style="text-align:left">0.5</td>
+      <td style="text-align:left">2</td>
+      <td style="text-align:left">3 (2 for growing, 1 for hashing new record)</td>
+      <td style="text-align:left">
+        <img src="../.gitbook/assets/hashacct3.png" alt/>
+      </td>
+      <td style="text-align:left">0</td>
+    </tr>
+  </tbody>
+</table>Already we see that there is a problem after just one doubling.  There are two issues:
 
-Now, let us consider what happens as we create our array
+1. when we copy, we have to iterate over the empty elements to recognize they are empty 
+2. After we copy, the element that we copied over used up the stored credit so in the future if we were to copy again, we won't have a credit to copy it.
 
+So what should we do in this case?  Well, what we need to do is simply charge more for insertion than just $2 like we did with bit flipping.
 
+So, firstly we duplicate when ever we get to half full.  Thus it makes sense that we need at least 1 more dollar to copy the empties.  The number of empties will be at most the same as the number of fulls so if each element had two credits then it can pay for dealing with the empty ones.
+
+But this won't address the problem of not having the credits needed after a single copy for future copies.  Thus we will add $2 more dollars to charge \(5 dollars total\).  We double the array every time it reaches half full.  We want to ensure that the items added after we do a grow can pay for copying everything 
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Operation</th>
+      <th style="text-align:left">
+        <p>loadfactor</p>
+        <p>before insert()
+          <br />call</p>
+      </th>
+      <th style="text-align:left">Charge</th>
+      <th style="text-align:left">Cost</th>
+      <th style="text-align:left">Hash table</th>
+      <th style="text-align:left">Credit balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">Initial</td>
+      <td style="text-align:left">0</td>
+      <td style="text-align:left">-</td>
+      <td style="text-align:left">-</td>
+      <td style="text-align:left">
+        <img src="../.gitbook/assets/hashacct1.png" alt/>
+      </td>
+      <td style="text-align:left">0</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">insert()</td>
+      <td style="text-align:left">0</td>
+      <td style="text-align:left">5</td>
+      <td style="text-align:left">1</td>
+      <td style="text-align:left">
+        <img src="../.gitbook/assets/hashacct4.png" alt/>
+      </td>
+      <td style="text-align:left">+4</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">insert()</td>
+      <td style="text-align:left">0.5</td>
+      <td style="text-align:left">5</td>
+      <td style="text-align:left">3</td>
+      <td style="text-align:left">
+        <img src="../.gitbook/assets/hashacct5.png" alt/>
+      </td>
+      <td style="text-align:left">+6</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">insert()</td>
+      <td style="text-align:left">0.25</td>
+      <td style="text-align:left">5</td>
+      <td style="text-align:left">5</td>
+      <td style="text-align:left">
+        <img src="../.gitbook/assets/hashacct6.png" alt/>
+      </td>
+      <td style="text-align:left">+ 6</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">insert()</td>
+      <td style="text-align:left">0.375</td>
+      <td style="text-align:left">5</td>
+      <td style="text-align:left">1</td>
+      <td style="text-align:left">
+        <img src="../.gitbook/assets/hashacct7.png" alt/>
+      </td>
+      <td style="text-align:left">+ 10</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">insert()</td>
+      <td style="text-align:left">0.5</td>
+      <td style="text-align:left">5</td>
+      <td style="text-align:left">9</td>
+      <td style="text-align:left">array has 16 elements, 8 of the credits from before was used, leaving
+        a single new element with 4 credits</td>
+      <td style="text-align:left">+6</td>
+    </tr>
+  </tbody>
+</table>As we can see, the number of credits we add with each insertion after a grow operation is enough to pay for the duplication of every element of the array even if the rest of the array has no credits.
+
+Thus, the total number cost for m operation is 5 m.  Therefore the amortized cost per operation is 5m/m and thus, the run time is constant.
 
 
 

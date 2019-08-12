@@ -40,13 +40,14 @@ $$\sum\limits_{i=0}^{k-1} {\lfloor {m \over {2^{i}}}\rfloor}<= m \sum\limits_{i=
 
 Thus, the amortized cost is $${2m \over m } = 2$$ per increment\(\) operation.
 
-### Hash Table Resizing
+### Example 2: Hash Table Resizing
 
 Going back to the hashtable resizing example.  We alter the insertion\(x\) function to something like:
 
 ```text
 insert(x){
     if(loadFactor() >= 0.5){
+        //grow
         create new table with double the capacity
         go through current table, for every non-nil element
            rehash into new table
@@ -56,7 +57,7 @@ insert(x){
 }
 ```
 
-For our purposes lets assume that except for the grow\(\) function, the rest of insertion\(\) is constant \(ie that our hash function will evenly distribute our data set evenly etc.\).  
+For our purposes lets assume that except for the code to grow the array, the rest of insertion\(\) is constant \(ie that our hash function will evenly distribute our data set evenly etc.\).  
 
 Now..lets say that we perform m operations, if we only call insert\(\) then grow\(\) will be called more often.  Now, lets suppose we start with an array of capacity 2 holding 0 records.  Which insert\(\) operations call grow\(\) and how many elements are copied when it does?
 
