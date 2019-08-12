@@ -26,6 +26,20 @@ Every time we do an increment\(\) operation, 1 bit will always change from 0 to 
 
 We imagine storing the charges with each bit \(think of it as storing it up to change that particular bit back to a 0.
 
+Now lets consider what would happen as we call increment
+
+| Operation | Charge | Cost | What is stored | Credit balance  after operation |
+| :--- | :--- | :--- | :--- | :--- |
+| Initial | - | - | ![](../.gitbook/assets/bincountacct1.png)  | 0 |
+| increment\(\) | +2 | 1 | ![](../.gitbook/assets/bincountacct2.png)  | +1 |
+| increment\(\) | +2 | 2 | ![](../.gitbook/assets/bincountacct3.png)  | +1 |
+| increment\(\) | +2 | 1 | ![](../.gitbook/assets/bincountacct4.png)  | +2 |
+| increment\(\) | +2 | 3 | ![](../.gitbook/assets/bincountacct5.png)  | +1 |
+| increment\(\) | +2 | 1 | ![](../.gitbook/assets/bincountacct6.png)  | +2 |
+| increment\(\) | +2 | 2 | ![](../.gitbook/assets/bincountacct7.png) | +2 |
+| increment\(\) | +2 | 1 | ![](../.gitbook/assets/bincountacct8.png) | +3 |
+| increment\(\) | +2 | 4 | ![](../.gitbook/assets/bincountacct9.png) | +1 |
+
 
 
 Consider a the implementation of an array with two basic operations:
