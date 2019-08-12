@@ -22,7 +22,7 @@ Lets take a look at the bit flipping example a slightly different way:
 | increment\(\) | 7 | 00 011**1** | 0--&gt;1 1 times |
 | increment\(\)  | 8  | 00 **1000** | 0--&gt;1 1 times, 1--&gt; 0 3 times |
 
-Every time we do an increment\(\) operation, 1 bit will always change from 0 to 1.  It is exactly 1 bit every time.  all other bit changes go from 1 to 0.  So what we want to do is see if its possible to pay in advance to flip a bit back to 0 after it got changed to a 1.
+Every time we do an increment\(\) operation, 1 bit will always change from 0 to 1.  It is exactly 1 bit every time. \(with exception of when every bit is a 1 and we flip back to 0\)  all other bit changes go from 1 to 0.  So what we want to do is see if its possible to pay in advance to flip a bit back to 0 after it got changed to a 1.
 
 We imagine storing the charges with each bit \(think of it as storing it up to change that particular bit back to a 0.
 
@@ -40,7 +40,15 @@ Now lets consider what would happen as we call increment
 | increment\(\) | +2 | 1 | ![](../.gitbook/assets/bincountacct8.png) | +3 |
 | increment\(\) | +2 | 4 | ![](../.gitbook/assets/bincountacct9.png) | +1 |
 
+During the process above, any bit that is a 1 will have a credit of 1 that can be used to flip back to a 0.
 
+We can prove the above statement is true by induction.  
+
+* We know that the statement is true initially as every single bit is a 0.
+* We assume that the statement true, that every bit that has a 1 has a credit.  
+* We then apply the increment\(\) operator to the counter.  This increment operator will always change exactly 1 bit from 0 to 1, charge two, store 1 into that bit.  All other bits that were 0 will not change so they have no cost.  For any other 1 bit, there is is  credit to change it back to 0.
+
+### Example 2: Dynamic Array
 
 Consider a the implementation of an array with two basic operations:
 
