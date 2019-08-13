@@ -38,5 +38,11 @@ To get a lower bound, we find a specific input for our array that will cause at 
 
 ### Average-case analysis
 
+To perform the average case analysis, lets begin by creating a sample space with $$S_n$$= all permutations of 1 to n.  We assume that all permutations are equally likely.
+
+Now, firstly notice that it doesn't matter what the exact values in array are as long as we can refer to them as smallest, second smallet etc. Also notice that there are no equality in this sample set.  This is not a bad assumption because equality allows multiple values to be placed into the Equal set which doesn't make it into the next recursive call causing the sample size in successive calls to be smaller. Thus, our specification would lead to an over estimate of the runtime which is good.
+
+
+
 
 
