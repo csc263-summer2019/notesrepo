@@ -1,2 +1,42 @@
 # Randomized Quicksort
 
+The quicksort algorithm works as follows \(in the general sense\):
+
+```cpp
+quickSort(int array[]){
+    if(array has more than one element){
+        select a pivot p from array
+        partition the array into 3 parts:
+            Smaller = all values smaller than pivot
+            Equal = all values bigger than pivot
+            Bigger = all values bigger than pivot
+            //quick sort all values smaller and bigger than array and then
+            //append all partitions back together
+            array=[quickSort(Smaller), Equal, quickSort(Bigger)];
+    }
+    return array;
+}
+```
+
+### 
+
+For now, we are going to select the first element in the array as the pivot.  This isn't necessarily how we would do it and there are other options but it will make the discussion easier to visualize.
+
+### Worst case analysis
+
+With each call to quickSort, we pick one pivot and then we partition the rest of the array by comparing it against the pivot.  The number of comparison we do pretty much determines how long it takes.
+
+#### Upper Bound
+
+Whenever we pick a value to be a pivot, it will always end up in the Equal partition and it won't be compared against anything else again in future quickSort\(\) recursive calls.  Every other value in the array is compared against the pivot at most one time.  Thus, every pair of values are only compared exactly one time.  There are $$\binom n 2 $$pairs in the array where n is the size of the array. Thus, T\(n\) &lt;= $$ \binom n 2$$ and thus, T\(n\) is $$O(n^2)$$
+
+#### Lower Bound
+
+To get a lower bound, we find a specific input for our array that will cause at least $$c n^2$$comparisons where c is some constant.  We are picking our pivot from the front of the array.  Thus if we create an array that was sorted from biggest to smallest... that is array\[0\] &gt; array\[1\] &gt; array\[2\] .... This will mean that the Bigger partition will contain n-1 items, Equal will have 1 while smaller will be empty.  This would mean that the quicksort call using bigger would only one 1 comparison less than its caller function.  Given how the recursion work the total number of comparisons can be described as:
+
+ $$ (n + (n-1) + (n-2) + ....1) ={ {(n)(n-1)}\over 2}$$.  Thus T\(n\) &gt;= $$cn^2$$ and thus, T\(n\) is $$\Omega (n^2)$$
+
+### Average-case analysis
+
+
+
