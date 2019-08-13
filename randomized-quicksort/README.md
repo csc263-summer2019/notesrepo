@@ -48,7 +48,7 @@ Let $$S_n$$represent the set of all inputs of size n.  Now.. clearly what we don
 
 Now we have defined our sample space.  What we want to do is define a random variable.
 
-Let $$t_n(S)$$ represent the number of steps needed to find the key if key was located in element the $$S'th$$ element of the array.  Thus S = 1 if key==array\[0\], S=2 if key==array\[1\] etc.  $$t_n(1) = 5 + 5, t_n(2) = 5+ 5(2), t_n(3)=5*5(3)$$ ... etc.
+Let random variable $$t_n(S)$$ represent the number of steps needed to find the key if key was located in element the $$S'th$$ element of the array.  Thus S = 1 if key==array\[0\], S=2 if key==array\[1\] etc.  $$t_n(1) = 5 + 5, t_n(2) = 5+ 5(2), t_n(3)=5*5(3)$$ ... etc.
 
 Now... what about the probability distribution?  \(ie how likely is key to be in S'th element\).  In our case we assume that every element of the array is equally likely.  Since there are n elements, we assume that there are $$\frac{1}{n}$$chance of key being located at any given index.
 
