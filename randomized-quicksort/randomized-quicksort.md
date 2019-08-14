@@ -102,8 +102,39 @@ $$ nT(n) - (n-1)T(n-1) = (2n+2) + {2 T(n-1)}$$
 
 $$nT(n) = (n-1)T(n-1) + (2n+2) + {2 T(n-1)}$$
 
-$$ nT(n) = (n+1)T(n-1) + (2n+2)$$  
+$$ nT(n) = (n+1)T(n-1) + (2n+2)$$
 
+we can drop the +2 at the end because it is insignficant compared to the rest of the equation and it will simplify the rest of the expressions. Thus we end up with:
+
+$$nT(n) = (n+1)T(n-1) + (2n)$$  
+
+
+Now... divide both sides by $$n(n+1)$$ which results in:
+
+$${T(n) \over (n+1)}= {T(n-1) \over n} + {2 \over (n+1)}$$
+
+and thus:
+
+$${T(n-1) \over (n)}= {T(n-2) \over (n-1)} + {2 \over (n)}$$ and
+
+$${T(n-2) \over (n-1)}= {T(n-3) \over (n-2)} + {2 \over (n-1)}$$ and
+
+...
+
+$${T(2) \over (3)}= {T(1) \over (2)} + {2 \over (3)}$$
+
+
+
+Now... we have an expression for $$T(n-1) \over n$$and $$T(n-2) \over (n-1)$$ and so on...Thus if we start substituting these into the expression:
+
+$${T(n) \over (n+1)}= {T(n-1) \over n} + {2 \over (n+1)}$$
+
+we will end up with:  
+$${T(n) \over (n+1)}= {T(1) \over 2} + {2 \sum\limits_{i=3}^{n+1} {1\over i}}$$
+
+$${T(n) \over (n+1)} = \Theta(log n)$$
+
+Thus, T\(n\) = $$\Theta(nlogn)$$
 
 ### Randomized Quicksort
 
