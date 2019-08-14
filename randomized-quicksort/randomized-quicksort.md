@@ -66,13 +66,19 @@ $$E[t_n] = \sum \limits_{i=1}^{n} { {1\over n} ( (n-1) + E[t_{i-1}] + E[t_{n-i}]
 
 $$E[t_n] = (\sum \limits_{i=1}^{n} { {1\over n}  (n-1)} )+{1\over n}(\sum\limits_{i=1}^{n}{ (E[t_{i-1}])} )+  {1\over n}(\sum\limits_{i=1}^{n}{( E[t_{n-i}])})$$
 
-$$E[t_n] = {{n(n-1)}\over n }+{1\over n}(E(t_0) + E(t_1) +...E(t_{n-1})) +{1\over n}( E(t_{n-1})+....E(t_1)+E(t_0))$$
+$$E[t_n] = {{n(n-1)}\over n }+{1\over n}(E[t_0]  + E[t_1]  +...E[t_{n-1}]) +{1\over n}( E[t_{n-1}]+....E[t_1] +E[t_0] )$$
 
-$$E[t_n] = (n-1) + 2E(t_0) + 2E(t_1) + 2E(t_2)...2E(t_{n-1})$$
+$$E[t_n] = (n-1) + 2E[t_0]  + 2E[t_1]  + 2E[t_2] ...2E[t_{n-1}]$$
 
-$$E[t_n] = (n-1) + 2(0) + 2E(t_1) + 2E(t_2)...2E(t_{n-1})$$
+$$E[t_n] = (n-1) + 2(0) + 2E[t_1]  + 2E[t_2] ...2E[t_{n-1}]$$
 
-$$E[t_n] = (n-1) + {2\over n}\sum\limits_{i=1}^{n-1}{E(t_i)}$$
+$$E[t_n] = (n-1) + {2\over n}\sum\limits_{i=1}^{n-1}{E[t_i] }$$
+
+Let $$T(n)$$ represent $$E[t_n]$$
+
+Thus:
+
+$$T(n) = (n-1) + {2\over n} \sum\limits_{i=1}^{n-1}{T(i)}$$
 
 ### Randomized Quicksort
 
