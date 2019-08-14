@@ -74,3 +74,13 @@ $$E[t_n] = (n-1) + 2(0) + 2E(t_1) + 2E(t_2)...2E(t_{n-1})$$
 
 $$E[t_n] = (n-1) + {2\over n}\sum\limits_{i=1}^{n-1}{E(t_i)}$$
 
+### Randomized Quicksort
+
+In the previous analysis, we make some pretty general assumptions, such every permutation is equally likely.  This however might not be true.  So how do we get a random distribution regardless of the data?  The thing that determines the size of the partition used in recursive call is the pivot.  Currently algorithm chooses first element as pivot.  Instead of picking first element as pivot, pick a random element as pivot.  Instead of relying on the input to be uniformly distributed, we use the random selection so that on a fixed input, the choice of pivot is still random.  Thus the expected worst case run time is $$\Theta (nlogn)$$
+
+Randomized quicksort is an example of Las Vegas algorithm.  These are randomized algorithms with a guaranteed correct result \(quicksort will always give correctly sorted array\) but there may be some flux to run time and can depend on the pivots that were randomly chosen.
+
+Another kind of randomized algorithm are called Monte Carlo algorithms.  With those algorithms you are guaranteed a run time but not that the result is definitely correct.
+
+
+
