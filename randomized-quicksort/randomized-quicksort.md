@@ -74,11 +74,36 @@ $$E[t_n] = (n-1) + 2(0) + 2E[t_1]  + 2E[t_2] ...2E[t_{n-1}]$$
 
 $$E[t_n] = (n-1) + {2\over n}\sum\limits_{i=1}^{n-1}{E[t_i] }$$
 
+We want to simplify this a bit
+
 Let $$T(n)$$ represent $$E[t_n]$$
 
 Thus:
 
 $$T(n) = (n-1) + {2\over n} \sum\limits_{i=1}^{n-1}{T(i)}$$
+
+We now multiply above by n and the expression for T\(n-1\) by n-1.  Doing so allows us to use a technique that will get rid of the summation.
+
+$$nT(n) =n( (n-1) + {2\over n} \sum\limits_{i=1}^{n-1}{T(i)})$$
+
+$$ nT(n) =(n^2-n) + {2 \sum\limits_{i=1}^{n-1}{T(i)})}$$
+
+and
+
+$$(n-1)T(n-1) = (n-1)((n-2) + {2 \over (n-1)} \sum\limits_{i=1}^{n-2} T(i))$$ 
+
+$$(n-1)T(n-1) = (n^2-3n+2) + 2 \sum\limits_{i=1}^{n-2} T(i)$$
+
+If we then subtract the second equation from the first, this is what we end up with:
+
+$$nT(n) - (n-1)T(n-1) =  (n^2-n) + {2 \sum\limits_{i=1}^{n-1}{T(i)})} - ((n^2-3n+2) + 2 \sum\limits_{i=1}^{n-2} T(i))$$
+
+$$ nT(n) - (n-1)T(n-1) = (2n+2) + {2 T(n-1)}$$
+
+$$nT(n) = (n-1)T(n-1) + (2n+2) + {2 T(n-1)}$$
+
+$$ nT(n) = (n+1)T(n-1) + (2n+2)$$  
+
 
 ### Randomized Quicksort
 
